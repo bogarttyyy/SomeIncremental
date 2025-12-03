@@ -1,15 +1,19 @@
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
+    TMP_Text orderAddress;
+
+    public string LastGeneratedName => lastGeneratedName;
+    public string LastGeneratedAddress => lastGeneratedAddress;
+
+    [SerializeField]
     string lastGeneratedName;
 
     [SerializeField]
     string lastGeneratedAddress;
-
-    public string LastGeneratedName => lastGeneratedName;
-    public string LastGeneratedAddress => lastGeneratedAddress;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,6 +26,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void ShowNextOrderAddress(string name, string addressLine1, string addressLine2)
+    {
+        orderAddress.text = $"{name}\n{addressLine1}\n{addressLine2}";
     }
 
 #if UNITY_EDITOR
@@ -45,7 +54,9 @@ public class GameManager : MonoBehaviour
     public void GenerateRandomNameAndAddressInEditor()
     {
         lastGeneratedName = RandomNameGenerator.GetRandomName();
-        lastGeneratedAddress = RandomAussieAddressGenerator.GetRandomAddress(false);
+        RandomAussieAddressGenerator.AddressParts generatedAddress = RandomAussieAddressGenerator.CreateAddressParts(null, false);
+        lastGeneratedAddress = $"{generatedAddress.StreetLine}, {generatedAddress.SuburbStateLine}";
+        ShowNextOrderAddress(lastGeneratedName, generatedAddress.StreetLine, generatedAddress.SuburbStateLine);
         UnityEditor.EditorUtility.SetDirty(this);
         Debug.Log($"Generated name: {lastGeneratedName}");
         Debug.Log($"Generated address: {lastGeneratedAddress}");
