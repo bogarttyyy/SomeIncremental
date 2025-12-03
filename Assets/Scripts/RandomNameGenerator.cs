@@ -12,7 +12,7 @@ public static class RandomNameGenerator
     };
 
     static readonly string[] MiddleNames = {
-        "Grace", "James", "Lee", "Rose", "Kai", "Skye", "Drew", "Quinn", "Jude", "Reid",
+        "Grace", "James", "Lee", "Rose", "Kai", "Skye", "Drew", "Quinn", "Jude", "Reid", "Marie",
         "Blair", "Brooke", "Wren", "Shay", "Cole", "Faye", "Hayes", "Rhys", "Lane", "Shea", "May"
     };
 
@@ -22,7 +22,7 @@ public static class RandomNameGenerator
         "Alvarez", "Zhang", "Mbatha", "Lopez", "Yilmaz", "Das", "Silva", "Bello", "Torres", "Rossi",
         "Baba", "Leblanc", "Abadines", "Tanaka", "Osei", "Volkov", "Saidi", "Popescu", "Chandra", "Mendez",
         "DeSouza", "Bekele", "Hashimoto", "Romero", "Mwangi", "Ghosh", "Nakamura", "Conteh", "Fernandes", "Abiola",
-        "Karim", "Sato", "Noorani", "Kowalski", "Batista", "Rojas", "Onwu", "Esquivel", "Petrovic", "Delgado"
+        "Karim", "Sato", "Noorani", "Kowalski", "Batista", "Rojas", "Onwu", "Esquivel", "Petrovic", "Delgado", "Abante"
     };
 
     // Returns a full name: First Last, with a middle name about 10% of the time.
@@ -34,7 +34,7 @@ public static class RandomNameGenerator
         var last = LastNames[rng.Next(LastNames.Length)];
 
         string middle = string.Empty;
-        if (rng.NextDouble() < 0.10)
+        if (rng.NextDouble() < 0.20)
         {
             middle = MiddleNames[rng.Next(MiddleNames.Length)];
         }
