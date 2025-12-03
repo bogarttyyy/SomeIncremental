@@ -112,3 +112,9 @@ LightmapSnapshot/
 # Cache               #
 # =================== #
 /.cache/
+
+
+# =================== #
+# Editor Tools        #
+# =================== #
+/Assets/ConsolePro*
