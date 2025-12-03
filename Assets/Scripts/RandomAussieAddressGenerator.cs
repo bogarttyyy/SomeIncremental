@@ -27,7 +27,7 @@ public static class RandomAussieAddressGenerator
         ("NTE", 800, 999) // will zero-pad to 4 digits (e.g., 0800)
     };
 
-    struct AddressParts
+    public struct AddressParts
     {
         public string UnitPrefix;
         public int StreetNumber;
@@ -36,10 +36,15 @@ public static class RandomAussieAddressGenerator
         public string Suburb;
         public string State;
         public int Postcode;
+
+        public string StreetLine => $"{UnitPrefix}{StreetNumber} {StreetName} {StreetType}";
+        public string SuburbStateLine => $"{Suburb}, {State} {Postcode:D4}";
     }
 
-    static AddressParts CreateAddressParts(bool allowUnit, Random rng)
+    public static AddressParts CreateAddressParts(Random rng = null, bool allowUnit = true)
     {
+        rng ??= new Random();
+
         var streetName = StreetNames[rng.Next(StreetNames.Length)];
         var streetType = StreetTypes[rng.Next(StreetTypes.Length)];
         var suburb = Suburbs[rng.Next(Suburbs.Length)];
@@ -69,30 +74,22 @@ public static class RandomAussieAddressGenerator
         };
     }
 
-    static string FormatStreet(AddressParts parts) => $"{parts.UnitPrefix}{parts.StreetNumber} {parts.StreetName} {parts.StreetType}";
-    static string FormatSuburbState(AddressParts parts) => $"{parts.Suburb}, {parts.State} {parts.Postcode:D4}";
-
     // Generates: Unit/Building Street Suburb, State Postcode (e.g., "101/3 Peter Rd, Northest, NSQ 2000")
     public static string GetRandomAddress(bool allowUnit = true, Random rng = null)
     {
-        rng ??= new Random();
-        var parts = CreateAddressParts(allowUnit, rng);
-        return $"{FormatStreet(parts)}, {FormatSuburbState(parts)}";
+        var parts = CreateAddressParts(rng, allowUnit);
+        return $"{parts.StreetLine}, {parts.SuburbStateLine}";
     }
 
     // Line 1: unit/building street (e.g., "101/3 Peter Rd" or "12 Harbor St")
-    public static string GetStreet(bool allowUnit = true, Random rng = null)
+    public static string GetStreet(AddressParts parts)
     {
-        rng ??= new Random();
-        var parts = CreateAddressParts(allowUnit, rng);
-        return FormatStreet(parts);
+        return parts.StreetLine;
     }
 
     // Line 2: suburb, state postcode (e.g., "Northest, NSQ 2000")
-    public static string GetSuburbState(Random rng = null)
+    public static string GetSuburbState(AddressParts parts)
     {
-        rng ??= new Random();
-        var parts = CreateAddressParts(allowUnit: false, rng);
-        return FormatSuburbState(parts);
+        return parts.SuburbStateLine;
     }
 }
