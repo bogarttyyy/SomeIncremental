@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 /// <summary>
 /// Handles freeform typing (letters, numbers, symbols) into a TMP_Text,
@@ -11,6 +13,7 @@ public class AddressTyper : MonoBehaviour
     [SerializeField] GameManager gameManager;
 
     string currentText = string.Empty;
+    bool backspaceCameFromTextEvent;
 
     void Awake()
     {
@@ -20,44 +23,71 @@ public class AddressTyper : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        if (Keyboard.current != null)
+        {
+            Keyboard.current.onTextInput += OnTextInput;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (Keyboard.current != null)
+        {
+            Keyboard.current.onTextInput -= OnTextInput;
+        }
+    }
+
     void Update()
     {
         if (targetText == null || gameManager == null) return;
+        var keyboard = Keyboard.current;
+        if (keyboard == null) return; // no keyboard available
 
-        HandleTyping();
-        HandleEnterKeys();
+        HandleControlKeys(keyboard);
+        targetText.text = currentText;
+
+        // reset per-frame flags
+        backspaceCameFromTextEvent = false;
     }
 
-    void HandleTyping()
+    void OnTextInput(char c)
     {
-        foreach (char c in Input.inputString)
+        // New Input System text event; includes letters, numbers, symbols.
+        if (c == '\n' || c == '\r') return; // Enter handled separately
+        if (c == '\b')
         {
-            switch (c)
+            // Some platforms send backspace as text input; treat it as delete-previous-char.
+            DeletePreviousChar();
+            backspaceCameFromTextEvent = true;
+            return;
+        }
+        // Allow only letters, digits, symbols/punctuation, and space.
+        if (char.IsLetterOrDigit(c) || char.IsSymbol(c) || char.IsPunctuation(c) || c == ' ')
+        {
+            currentText += char.ToUpperInvariant(c);
+        }
+    }
+
+    void HandleControlKeys(Keyboard keyboard)
+    {
+        if (WasPressed(keyboard.backspaceKey) && !backspaceCameFromTextEvent)
+        {
+            if (CtrlHeld(keyboard))
             {
-                case '\b': // backspace
-                    if (currentText.Length > 0)
-                        currentText = currentText.Substring(0, currentText.Length - 1);
-                    break;
-                case '\n':
-                case '\r':
-                    // Enter handling is done separately so we can detect modifiers.
-                    break;
-                default:
-                    currentText += c;
-                    break;
+                DeletePreviousWord();
+            }
+            else
+            {
+                DeletePreviousChar();
             }
         }
 
-        targetText.text = currentText;
-    }
-
-    void HandleEnterKeys()
-    {
-        bool enterDown = Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter);
+        bool enterDown = WasPressed(keyboard.enterKey) || WasPressed(keyboard.numpadEnterKey);
         if (!enterDown) return;
 
-        bool ctrlHeld = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-        if (ctrlHeld)
+        if (CtrlHeld(keyboard))
         {
             SubmitAndAdvance();
         }
@@ -65,6 +95,29 @@ public class AddressTyper : MonoBehaviour
         {
             InsertNewLine();
         }
+    }
+
+    bool CtrlHeld(Keyboard keyboard) => keyboard.shiftKey != null && keyboard.shiftKey.isPressed;
+
+    bool WasPressed(KeyControl key) => key != null && key.wasPressedThisFrame;
+
+    void DeletePreviousChar()
+    {
+        if (currentText.Length > 0)
+            currentText = currentText.Substring(0, currentText.Length - 1);
+    }
+
+    void DeletePreviousWord()
+    {
+        if (string.IsNullOrEmpty(currentText)) return;
+
+        int i = currentText.Length;
+        // skip trailing whitespace
+        while (i > 0 && char.IsWhiteSpace(currentText[i - 1])) i--;
+        // skip word characters
+        while (i > 0 && !char.IsWhiteSpace(currentText[i - 1])) i--;
+
+        currentText = currentText.Substring(0, i);
     }
 
     // Ctrl+Enter: advance to next order address and clear current input.
