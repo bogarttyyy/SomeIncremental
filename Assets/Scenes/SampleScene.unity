@@ -681,6 +681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50614850bd4b2344289cc4ece262cc9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  lastGeneratedAddress: 113/2 17 Peter Pl, Seabourne, VIC 3747
 --- !u!4 &2125073121
 Transform:
   m_ObjectHideFlags: 0
