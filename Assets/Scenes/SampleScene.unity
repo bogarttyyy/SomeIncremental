@@ -734,6 +734,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 772072083}
+  - component: {fileID: 772072084}
   m_Layer: 0
   m_Name: Envelopes
   m_TagString: Untagged
@@ -759,6 +760,24 @@ Transform:
   - {fileID: 935012253}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &772072084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772072082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713c145141c57cd4d9ebf5f44c47d7f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvelopeSelect
+  untrackedEnv: {fileID: 1046451229}
+  trackedEnv: {fileID: 1864921305}
+  expressEnv: {fileID: 935012253}
+  untrackedBig: {fileID: 2055505197}
+  trackedBig: {fileID: 2085889241}
+  expressBig: {fileID: 906961719}
 --- !u!1 &790957016
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,6 +912,8 @@ GameObject:
   m_Component:
   - component: {fileID: 935012253}
   - component: {fileID: 935012254}
+  - component: {fileID: 935012255}
+  - component: {fileID: 935012256}
   m_Layer: 0
   m_Name: Express
   m_TagString: Untagged
@@ -973,6 +994,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &935012255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935012252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbb4b06d3bf9d648b11d086b88bbfa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvelopeClickHandler
+  envelopeSelect: {fileID: 772072084}
+  type: 2
+  raycastLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  maxRayDistance: 1000
+--- !u!50 &935012256
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935012252}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1021161342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,6 +1128,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1046451229}
   - component: {fileID: 1046451230}
+  - component: {fileID: 1046451231}
+  - component: {fileID: 1046451232}
   m_Layer: 0
   m_Name: Untracked
   m_TagString: Untagged
@@ -1142,6 +1210,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1046451231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046451228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbb4b06d3bf9d648b11d086b88bbfa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvelopeClickHandler
+  envelopeSelect: {fileID: 772072084}
+  type: 0
+  raycastLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  maxRayDistance: 1000
+--- !u!50 &1046451232
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046451228}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1864921304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,6 +1265,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1864921305}
   - component: {fileID: 1864921306}
+  - component: {fileID: 1864921307}
+  - component: {fileID: 1864921308}
   m_Layer: 0
   m_Name: Tracked
   m_TagString: Untagged
@@ -1232,6 +1347,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1864921307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864921304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbb4b06d3bf9d648b11d086b88bbfa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvelopeClickHandler
+  envelopeSelect: {fileID: 772072084}
+  type: 1
+  raycastLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  maxRayDistance: 1000
+--- !u!50 &1864921308
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864921304}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2055505196
 GameObject:
   m_ObjectHideFlags: 0
