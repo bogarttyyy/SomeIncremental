@@ -33,6 +33,14 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Generated name: {lastGeneratedName}");
     }
 
+    [ContextMenu("Generate Random Address")]
+    public void GenerateRandomAddressInEditor()
+    {
+        lastGeneratedAddress = RandomAussieAddressGenerator.GetRandomAddress(false);
+        UnityEditor.EditorUtility.SetDirty(this); // mark scene dirty so it persists
+        Debug.Log($"Generated address: {lastGeneratedAddress}");
+    }
+
     [ContextMenu("Generate Random Name + Address")]
     public void GenerateRandomNameAndAddressInEditor()
     {
@@ -40,14 +48,6 @@ public class GameManager : MonoBehaviour
         lastGeneratedAddress = RandomAussieAddressGenerator.GetRandomAddress(false);
         UnityEditor.EditorUtility.SetDirty(this);
         Debug.Log($"Generated name: {lastGeneratedName}");
-        Debug.Log($"Generated address: {lastGeneratedAddress}");
-    }
-
-    [ContextMenu("Generate Random Address")]
-    public void GenerateRandomAddressInEditor()
-    {
-        lastGeneratedAddress = RandomAussieAddressGenerator.GetRandomAddress(false);
-        UnityEditor.EditorUtility.SetDirty(this); // mark scene dirty so it persists
         Debug.Log($"Generated address: {lastGeneratedAddress}");
     }
 #endif

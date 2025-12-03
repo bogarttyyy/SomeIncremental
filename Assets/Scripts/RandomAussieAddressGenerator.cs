@@ -19,12 +19,12 @@ public static class RandomAussieAddressGenerator
     static readonly (string State, int Min, int Max)[] StatePostcodeRanges = {
         ("ACR", 1000, 1999),
         ("NSQ", 2000, 2999),
-        ("VIX", 3000, 3999),
-        ("QLF", 4000, 4999),
-        ("SOA", 5000, 5999),
+        ("VIK", 3000, 3999),
+        ("QLT", 4000, 4999),
+        ("SE", 5000, 5999),
         ("VA", 6000, 6999),
-        ("TAD", 7000, 7999),
-        ("NTE", 800, 999) // will zero-pad to 4 digits (e.g., 0800)
+        ("TAZ", 7000, 7999),
+        ("ND", 800, 999) // will zero-pad to 4 digits (e.g., 0800)
     };
 
     public struct AddressParts
