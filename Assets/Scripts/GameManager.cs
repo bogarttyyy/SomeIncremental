@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         letterAddress.text = string.Empty;
     }
 
-    private void ShowNextOrderAddress()
+    public void ShowNextOrderAddress()
     {
         string randomName = RandomNameGenerator.GetRandomName();
         EAddressParts generatedEAddress = GenerateNextAddress();
