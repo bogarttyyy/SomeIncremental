@@ -27,21 +27,7 @@ public static class RandomAussieAddressGenerator
         ("ND", 800, 999) // will zero-pad to 4 digits (e.g., 0800)
     };
 
-    public struct AddressParts
-    {
-        public string UnitPrefix;
-        public int StreetNumber;
-        public string StreetName;
-        public string StreetType;
-        public string Suburb;
-        public string State;
-        public int Postcode;
-
-        public string StreetLine => $"{UnitPrefix}{StreetNumber} {StreetName} {StreetType}";
-        public string SuburbStateLine => $"{Suburb}, {State} {Postcode:D4}";
-    }
-
-    public static AddressParts CreateAddressParts(Random rng = null, bool allowUnit = true)
+    public static EAddressParts CreateAddressParts(Random rng = null, bool allowUnit = true)
     {
         rng ??= new Random();
 
@@ -62,7 +48,7 @@ public static class RandomAussieAddressGenerator
 
         var streetNumber = rng.Next(1, 399);
 
-        return new AddressParts
+        return new EAddressParts
         {
             UnitPrefix = unitPrefix,
             StreetNumber = streetNumber,
@@ -82,13 +68,13 @@ public static class RandomAussieAddressGenerator
     }
 
     // Line 1: unit/building street (e.g., "101/3 Peter Rd" or "12 Harbor St")
-    public static string GetStreet(AddressParts parts)
+    public static string GetStreet(EAddressParts parts)
     {
         return parts.StreetLine;
     }
 
     // Line 2: suburb, state postcode (e.g., "Northest, NSQ 2000")
-    public static string GetSuburbState(AddressParts parts)
+    public static string GetSuburbState(EAddressParts parts)
     {
         return parts.SuburbStateLine;
     }

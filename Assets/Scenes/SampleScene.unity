@@ -176,11 +176,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Anish Abiola
+  m_text: 'Tess Ting
 
-    295 Southern Cross Dr
+    1 Testing St
 
-    Bayhaven, NSQ 2447'
+    Tester Hill, TST 9999'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -316,7 +316,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'ANISH ABIOLA
+
+    295 SOUTHERN CROSS DR
+
+    BAYHAVEN, NSQ 2447
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e67743d7427536744a2287624fa4bff1, type: 2}
   m_sharedMaterial: {fileID: -7759566831798495525, guid: e67743d7427536744a2287624fa4bff1, type: 2}
@@ -343,8 +349,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -381,7 +387,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -122.34674, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1435,6 +1441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50614850bd4b2344289cc4ece262cc9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  letterAddress: {fileID: 182075963}
   orderAddress: {fileID: 41328448}
   lastGeneratedName: Anish Abiola
   lastGeneratedAddress: 295 Southern Cross Dr, Bayhaven, NSQ 2447

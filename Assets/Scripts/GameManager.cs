@@ -4,6 +4,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
+    TMP_Text letterAddress;
+    [SerializeField]
     TMP_Text orderAddress;
 
     public string LastGeneratedName => lastGeneratedName;
@@ -18,48 +20,59 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        var address = RandomAussieAddressGenerator.GetRandomAddress();
-        Debug.Log($"Ship to: {address}");
+        ShowNextOrderAddress();
+        letterAddress.text = string.Empty;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ShowNextOrderAddress()
     {
-        
+        string randomName = RandomNameGenerator.GetRandomName();
+        EAddressParts generatedEAddress = GenerateNextAddress();
+        orderAddress.text = $"{randomName}\n{generatedEAddress.StreetLine}\n{generatedEAddress.SuburbStateLine}";
     }
 
-    private void ShowNextOrderAddress(string name, string addressLine1, string addressLine2)
+    public EAddressParts GenerateNextAddress(bool allowUnit = false)
     {
-        orderAddress.text = $"{name}\n{addressLine1}\n{addressLine2}";
+        EAddressParts generatedEAddress = RandomAussieAddressGenerator.CreateAddressParts(null, allowUnit);
+        lastGeneratedAddress = $"{generatedEAddress.StreetLine}, {generatedEAddress.SuburbStateLine}";
+        Debug.Log($"Ship to: {lastGeneratedAddress}");
+        return generatedEAddress;
+    }
+
+    private void SetLastGeneratedName(string personName)
+    {
+        lastGeneratedName = personName;
+        Debug.Log($"Generated name: {lastGeneratedName}");
+    }
+
+    private void SetLastGenerateAddress(string address)
+    {
+        lastGeneratedAddress = address;
+        Debug.Log($"Generated address: {lastGeneratedAddress}");
     }
 
 #if UNITY_EDITOR
     [ContextMenu("Generate Random Name")]
     public void GenerateRandomNameInEditor()
     {
-        lastGeneratedName = RandomNameGenerator.GetRandomName();
         UnityEditor.EditorUtility.SetDirty(this);
-        Debug.Log($"Generated name: {lastGeneratedName}");
     }
 
     [ContextMenu("Generate Random Address")]
     public void GenerateRandomAddressInEditor()
     {
-        lastGeneratedAddress = RandomAussieAddressGenerator.GetRandomAddress(false);
+        SetLastGenerateAddress(RandomAussieAddressGenerator.GetRandomAddress(false));
         UnityEditor.EditorUtility.SetDirty(this); // mark scene dirty so it persists
-        Debug.Log($"Generated address: {lastGeneratedAddress}");
     }
 
     [ContextMenu("Generate Random Name + Address")]
     public void GenerateRandomNameAndAddressInEditor()
     {
-        lastGeneratedName = RandomNameGenerator.GetRandomName();
-        RandomAussieAddressGenerator.AddressParts generatedAddress = RandomAussieAddressGenerator.CreateAddressParts(null, false);
-        lastGeneratedAddress = $"{generatedAddress.StreetLine}, {generatedAddress.SuburbStateLine}";
-        ShowNextOrderAddress(lastGeneratedName, generatedAddress.StreetLine, generatedAddress.SuburbStateLine);
+        SetLastGeneratedName(RandomNameGenerator.GetRandomName());
+        EAddressParts generatedEAddress = RandomAussieAddressGenerator.CreateAddressParts(null, false);
+        SetLastGenerateAddress($"{generatedEAddress.StreetLine}, {generatedEAddress.SuburbStateLine}");
+        // ShowNextOrderAddress(lastGeneratedName, generatedAddress.StreetLine, generatedAddress.SuburbStateLine);
         UnityEditor.EditorUtility.SetDirty(this);
-        Debug.Log($"Generated name: {lastGeneratedName}");
-        Debug.Log($"Generated address: {lastGeneratedAddress}");
     }
 #endif
 }
