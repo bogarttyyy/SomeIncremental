@@ -14,6 +14,11 @@ public class GameManagerEditor : Editor
             manager.GenerateRandomNameInEditor();
         }
 
+        if (GUILayout.Button("Generate Random Name + Address"))
+        {
+            manager.GenerateRandomNameAndAddressInEditor();
+        }
+
         if (GUILayout.Button("Generate Random Address"))
         {
             manager.GenerateRandomAddressInEditor();

@@ -33,6 +33,16 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Generated name: {lastGeneratedName}");
     }
 
+    [ContextMenu("Generate Random Name + Address")]
+    public void GenerateRandomNameAndAddressInEditor()
+    {
+        lastGeneratedName = RandomNameGenerator.GetRandomName();
+        lastGeneratedAddress = RandomAussieAddressGenerator.GetRandomAddress(false);
+        UnityEditor.EditorUtility.SetDirty(this);
+        Debug.Log($"Generated name: {lastGeneratedName}");
+        Debug.Log($"Generated address: {lastGeneratedAddress}");
+    }
+
     [ContextMenu("Generate Random Address")]
     public void GenerateRandomAddressInEditor()
     {
