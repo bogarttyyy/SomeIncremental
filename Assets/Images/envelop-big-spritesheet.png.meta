@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 1ca11cbe760073348bd3e72c8ab8b97f
+guid: 394f1f6f67aa26f45b1c3e8c295621c5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6005112241246697809
-    second: untracked-big_0
+      213: 7811324469094505633
+    second: envelop-big-spritesheet_0
+  - first:
+      213: -8843008833583301831
+    second: envelop-big-spritesheet_1
+  - first:
+      213: -7138065073577817170
+    second: envelop-big-spritesheet_2
+  - first:
+      213: 910252581786890291
+    second: envelop-big-spritesheet_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 128
+  spritePixelsToUnits: 256
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,23 +135,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: untracked-big_0
+      name: express-big
       rect:
         serializedVersion: 2
-        x: 8
-        y: 64
-        width: 241
-        height: 132
+        x: 9
+        y: 65
+        width: 239
+        height: 130
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 159fbd754c1765350800000000000000
-      internalID: 6005112241246697809
+      spriteID: 1acd1bde736676c60800000000000000
+      internalID: 7811324469094505633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tracked-big
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 64
+        width: 241
+        height: 132
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93b30a07152574580800000000000000
+      internalID: -8843008833583301831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: untracked-big
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 64
+        width: 241
+        height: 132
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eab85c972af70fc90800000000000000
+      internalID: -7138065073577817170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: untracked-big-stamped
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 64
+        width: 241
+        height: 132
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3303a4186edd1ac00800000000000000
+      internalID: 910252581786890291
       vertices: []
       indices: 
       edges: []
@@ -151,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 10184b06480d3e14d8ad0b425ad08a77
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +236,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      untracked-big_0: 6005112241246697809
+      express-big: 7811324469094505633
+      tracked-big: -8843008833583301831
+      untracked-big: -7138065073577817170
+      untracked-big-stamped: 910252581786890291
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
