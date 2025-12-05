@@ -1467,6 +1467,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2dbdc6094f64543a6dd7892e11e19a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BigEnvelope
+  slideInPos: {x: -3, y: -1.5}
+  outPos: {x: -20, y: -1.5}
+  slideDuration: 0.5
+  slideInEase: 27
   image: {fileID: 0}
 --- !u!1 &2125073119
 GameObject:

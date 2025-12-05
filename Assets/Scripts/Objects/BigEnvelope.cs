@@ -1,3 +1,7 @@
+using System;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +12,15 @@ using UnityEngine.UI;
 public class BigEnvelope : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private Vector2 slideInPos;
+    [SerializeField] private Vector2 outPos;
+    [SerializeField] private float slideDuration=0.5f;
+    [SerializeField] private Ease slideInEase = Ease.InOutQuad;
     [SerializeField] private Image image;
+
+    private TweenerCore<Vector3, Vector3, VectorOptions> envelopeSlideTween;
+
+    public static event Action EnvelopeChanged;
 
     private void Awake()
     {
@@ -19,16 +31,17 @@ public class BigEnvelope : MonoBehaviour
 
     private void OnEnable()
     {
-        Envelope.EnvelopeClicked.AddListener(OnEnvelopeClicked);
+        Envelope.EnvelopeClicked += OnEnvelopeClicked;
     }
 
     private void OnDisable()
     {
-        Envelope.EnvelopeClicked.RemoveListener(OnEnvelopeClicked);
+        Envelope.EnvelopeClicked -= OnEnvelopeClicked;
     }
 
     private void OnEnvelopeClicked(Sprite sprite)
     {
+        ResetEnvelope();
         if (sprite == null) return;
 
         if (spriteRenderer != null)
@@ -40,5 +53,24 @@ public class BigEnvelope : MonoBehaviour
         {
             image.sprite = sprite;
         }
+
+        SlideIn();
+    }
+
+    private void ResetEnvelope()
+    {
+        // Kill Tween
+        envelopeSlideTween?.Kill();
+        
+        // Reset Address Text
+        EnvelopeChanged?.Invoke();
+        
+        // Reset position away from screen
+        transform.position = outPos;
+    }
+
+    private void SlideIn()
+    {
+        envelopeSlideTween = transform.DOMove(slideInPos, slideDuration).SetEase(slideInEase);
     }
 }

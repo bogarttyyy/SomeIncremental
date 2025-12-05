@@ -1,16 +1,18 @@
+using System;
 using Interfaces;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Envelope : MonoBehaviour, IClickable
 {
-    public static readonly UnityEvent<Sprite> EnvelopeClicked = new UnityEvent<Sprite>();
+    // public static readonly UnityEvent<Sprite> EnvelopeClicked = new UnityEvent<Sprite>();
+    
+    public static event Action<Sprite> EnvelopeClicked; 
 
     [SerializeField] private Sprite bigSprite;
 
     public void OnClicked()
     {
-        Debug.Log($"Clicked: {gameObject.name}");
-        EnvelopeClicked.Invoke(bigSprite);
+        // Debug.Log($"Clicked: {gameObject.name}");
+        EnvelopeClicked?.Invoke(bigSprite);
     }
 }

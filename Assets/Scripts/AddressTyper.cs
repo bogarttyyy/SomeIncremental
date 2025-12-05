@@ -29,6 +29,8 @@ public class AddressTyper : MonoBehaviour
         {
             Keyboard.current.onTextInput += OnTextInput;
         }
+        BigEnvelope.EnvelopeChanged += OnEnvelopeChanged;
+        Debug.Log("AddressTyper OnEnable()");
     }
 
     void OnDisable()
@@ -37,6 +39,8 @@ public class AddressTyper : MonoBehaviour
         {
             Keyboard.current.onTextInput -= OnTextInput;
         }
+        BigEnvelope.EnvelopeChanged -= OnEnvelopeChanged;
+        Debug.Log("AddressTyper OnDisable()");
     }
 
     void Update()
@@ -50,6 +54,12 @@ public class AddressTyper : MonoBehaviour
 
         // reset per-frame flags
         backspaceCameFromTextEvent = false;
+    }
+
+    private void OnEnvelopeChanged()
+    {
+        Debug.Log("OnChangeEnvelope");
+        ClearText();
     }
 
     void OnTextInput(char c)
@@ -123,8 +133,7 @@ public class AddressTyper : MonoBehaviour
     // Ctrl+Enter: advance to next order address and clear current input.
     public void SubmitAndAdvance()
     {
-        currentText = string.Empty;
-        targetText.text = string.Empty;
+        ClearText();
         gameManager.ShowNextOrderAddress();
     }
 
@@ -133,5 +142,11 @@ public class AddressTyper : MonoBehaviour
     {
         currentText += "\n";
         targetText.text = currentText;
+    }
+
+    private void ClearText()
+    {
+        currentText = string.Empty;
+        targetText.text = string.Empty;
     }
 }
