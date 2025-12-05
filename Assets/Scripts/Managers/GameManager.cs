@@ -41,16 +41,16 @@ public class GameManager : MonoBehaviour
     public void ShowNextOrderAddress()
     {
         string randomName = RandomNameGenerator.GetRandomName();
-        EAddressParts generatedEAddress = GenerateNextAddress();
-        orderAddress.text = $"{randomName}\n{generatedEAddress.StreetLine}\n{generatedEAddress.SuburbStateLine}";
+        AddressParts generatedAddress = GenerateNextAddress();
+        orderAddress.text = $"{randomName}\n{generatedAddress.StreetLine}\n{generatedAddress.SuburbStateLine}";
     }
 
-    public EAddressParts GenerateNextAddress(bool allowUnit = false)
+    public AddressParts GenerateNextAddress(bool allowUnit = false)
     {
-        EAddressParts generatedEAddress = RandomAussieAddressGenerator.CreateAddressParts(null, allowUnit);
-        lastGeneratedAddress = $"{generatedEAddress.StreetLine}, {generatedEAddress.SuburbStateLine}";
+        AddressParts generatedAddress = RandomAussieAddressGenerator.CreateAddressParts(allowUnit);
+        lastGeneratedAddress = $"{generatedAddress.StreetLine}, {generatedAddress.SuburbStateLine}";
         Debug.Log($"Ship to: {lastGeneratedAddress}");
-        return generatedEAddress;
+        return generatedAddress;
     }
 
     private void SetLastGeneratedName(string personName)
@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Generate Random Name")]
     public void GenerateRandomNameInEditor()
     {
+        SetLastGeneratedName(RandomNameGenerator.GetRandomName());
         UnityEditor.EditorUtility.SetDirty(this);
     }
 
@@ -83,8 +84,8 @@ public class GameManager : MonoBehaviour
     public void GenerateRandomNameAndAddressInEditor()
     {
         SetLastGeneratedName(RandomNameGenerator.GetRandomName());
-        EAddressParts generatedEAddress = RandomAussieAddressGenerator.CreateAddressParts(null, false);
-        SetLastGenerateAddress($"{generatedEAddress.StreetLine}, {generatedEAddress.SuburbStateLine}");
+        AddressParts generatedAddress = RandomAussieAddressGenerator.CreateAddressParts(false);
+        SetLastGenerateAddress($"{generatedAddress.StreetLine}, {generatedAddress.SuburbStateLine}");
         // ShowNextOrderAddress(lastGeneratedName, generatedAddress.StreetLine, generatedAddress.SuburbStateLine);
         UnityEditor.EditorUtility.SetDirty(this);
     }

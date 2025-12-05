@@ -2,6 +2,8 @@ using System;
 
 public static class RandomNameGenerator
 {
+    public static event Action<string> NameGenerated;
+    
     static readonly string[] FirstNames = {
         "Amina", "Mateo", "Priya", "Wei", "Leila", "Yusuf", "Hana", "Malik", "Sofia", "Diego",
         "Mei", "Arjun", "Samira", "Luca", "Nia", "Omar", "Keiko", "Rafael", "Zahra", "Elias",
@@ -26,19 +28,19 @@ public static class RandomNameGenerator
     };
 
     // Returns a full name: First Last, with a middle name about 10% of the time.
-    public static string GetRandomName(Random rng = null)
+    public static string GetRandomName(double middleNameChance = 0.2, Random rng = null)
     {
         rng ??= new Random();
 
-        var first = FirstNames[rng.Next(FirstNames.Length)];
-        var last = LastNames[rng.Next(LastNames.Length)];
-
-        string middle = string.Empty;
-        if (rng.NextDouble() < 0.20)
+        PersonName newName = new PersonName()
         {
-            middle = MiddleNames[rng.Next(MiddleNames.Length)];
-        }
+            firstName = FirstNames[rng.Next(FirstNames.Length)],
+            lastName = LastNames[rng.Next(LastNames.Length)],
+            middleName = (rng.NextDouble() < middleNameChance) ? string.Empty : MiddleNames[rng.Next(MiddleNames.Length)],
+        };
 
-        return string.IsNullOrEmpty(middle) ? $"{first} {last}" : $"{first} {middle} {last}";
+        NameGenerated?.Invoke(newName.FullName);
+
+        return newName.FullName;
     }
 }

@@ -2,6 +2,8 @@ using System;
 
 public static class RandomAussieAddressGenerator
 {
+    public static event Action AddressGenerated;
+    
     static readonly string[] StreetNames = {
         "Peter", "Harbor", "Gumtree", "Eucalypt", "Southern Cross", "Coastline", "Bushland", "Outback",
         "Coral", "Wattle", "Kookaburra", "Billabong", "Sunrise", "Dune", "Quartz", "Ironbark", "Banksia"
@@ -27,7 +29,7 @@ public static class RandomAussieAddressGenerator
         ("ND", 800, 999) // will zero-pad to 4 digits (e.g., 0800)
     };
 
-    public static EAddressParts CreateAddressParts(Random rng = null, bool allowUnit = true)
+    public static AddressParts CreateAddressParts(bool allowUnit = true, Random rng = null)
     {
         rng ??= new Random();
 
@@ -47,8 +49,10 @@ public static class RandomAussieAddressGenerator
         }
 
         var streetNumber = rng.Next(1, 399);
+        
+        AddressGenerated?.Invoke();
 
-        return new EAddressParts
+        return new AddressParts
         {
             UnitPrefix = unitPrefix,
             StreetNumber = streetNumber,
@@ -63,18 +67,18 @@ public static class RandomAussieAddressGenerator
     // Generates: Unit/Building Street Suburb, State Postcode (e.g., "101/3 Peter Rd, Northest, NSQ 2000")
     public static string GetRandomAddress(bool allowUnit = true, Random rng = null)
     {
-        var parts = CreateAddressParts(rng, allowUnit);
+        var parts = CreateAddressParts(allowUnit, rng);
         return $"{parts.StreetLine}, {parts.SuburbStateLine}";
     }
 
     // Line 1: unit/building street (e.g., "101/3 Peter Rd" or "12 Harbor St")
-    public static string GetStreet(EAddressParts parts)
+    public static string GetStreet(AddressParts parts)
     {
         return parts.StreetLine;
     }
 
     // Line 2: suburb, state postcode (e.g., "Northest, NSQ 2000")
-    public static string GetSuburbState(EAddressParts parts)
+    public static string GetSuburbState(AddressParts parts)
     {
         return parts.SuburbStateLine;
     }
