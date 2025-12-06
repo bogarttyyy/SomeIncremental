@@ -1,3 +1,5 @@
+using Enums;
+using Generators;
 using TMPro;
 using UnityEngine;
 
@@ -13,11 +15,9 @@ public class GameManager : MonoBehaviour
     public string LastGeneratedName => lastGeneratedName;
     public string LastGeneratedAddress => lastGeneratedAddress;
 
-    [SerializeField]
-    string lastGeneratedName;
-
-    [SerializeField]
-    string lastGeneratedAddress;
+    [SerializeField] ECardRarity lastGeneratedCard;
+    [SerializeField] string lastGeneratedName;
+    [SerializeField] string lastGeneratedAddress;
 
     void Awake()
     {
@@ -41,13 +41,13 @@ public class GameManager : MonoBehaviour
     public void ShowNextOrderAddress()
     {
         string randomName = RandomNameGenerator.GetRandomName();
-        AddressParts generatedAddress = GenerateNextAddress();
+        Address generatedAddress = GenerateNextAddress();
         orderAddress.text = $"{randomName}\n{generatedAddress.StreetLine}\n{generatedAddress.SuburbStateLine}";
     }
 
-    public AddressParts GenerateNextAddress(bool allowUnit = false)
+    public Address GenerateNextAddress(bool allowUnit = false)
     {
-        AddressParts generatedAddress = RandomAussieAddressGenerator.CreateAddressParts(allowUnit);
+        Address generatedAddress = RandomAussieAddressGenerator.CreateAddressParts(allowUnit);
         lastGeneratedAddress = $"{generatedAddress.StreetLine}, {generatedAddress.SuburbStateLine}";
         Debug.Log($"Ship to: {lastGeneratedAddress}");
         return generatedAddress;
@@ -65,6 +65,12 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Generated address: {lastGeneratedAddress}");
     }
 
+    private void SetLastGeneratedCard(ECardRarity rarity)
+    {
+        lastGeneratedCard = rarity;
+        Debug.Log($"Generated card: {rarity}");
+    }
+
 #if UNITY_EDITOR
     [ContextMenu("Generate Random Name")]
     public void GenerateRandomNameInEditor()
@@ -80,12 +86,20 @@ public class GameManager : MonoBehaviour
         UnityEditor.EditorUtility.SetDirty(this); // mark scene dirty so it persists
     }
 
+    [ContextMenu("Generate Random Card")]
+    public void GenerateRandomCardInEditor()
+    {
+        SetLastGeneratedCard(RandomCardGenerator.GenerateRandomCard());
+        UnityEditor.EditorUtility.SetDirty(this); // mark scene dirty so it persists
+    }
+
     [ContextMenu("Generate Random Name + Address")]
-    public void GenerateRandomNameAndAddressInEditor()
+    public void GenerateRandomeOrderInEditor()
     {
         SetLastGeneratedName(RandomNameGenerator.GetRandomName());
-        AddressParts generatedAddress = RandomAussieAddressGenerator.CreateAddressParts(false);
+        Address generatedAddress = RandomAussieAddressGenerator.CreateAddressParts(false);
         SetLastGenerateAddress($"{generatedAddress.StreetLine}, {generatedAddress.SuburbStateLine}");
+        SetLastGeneratedCard(RandomCardGenerator.GenerateRandomCard());
         // ShowNextOrderAddress(lastGeneratedName, generatedAddress.StreetLine, generatedAddress.SuburbStateLine);
         UnityEditor.EditorUtility.SetDirty(this);
     }

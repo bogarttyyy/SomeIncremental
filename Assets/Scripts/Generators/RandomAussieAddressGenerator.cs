@@ -29,7 +29,7 @@ public static class RandomAussieAddressGenerator
         ("ND", 800, 999) // will zero-pad to 4 digits (e.g., 0800)
     };
 
-    public static AddressParts CreateAddressParts(bool allowUnit = true, Random rng = null)
+    public static Address CreateAddressParts(bool allowUnit = true, Random rng = null)
     {
         rng ??= new Random();
 
@@ -52,7 +52,7 @@ public static class RandomAussieAddressGenerator
         
         AddressGenerated?.Invoke();
 
-        return new AddressParts
+        return new Address
         {
             UnitPrefix = unitPrefix,
             StreetNumber = streetNumber,
@@ -72,13 +72,13 @@ public static class RandomAussieAddressGenerator
     }
 
     // Line 1: unit/building street (e.g., "101/3 Peter Rd" or "12 Harbor St")
-    public static string GetStreet(AddressParts parts)
+    public static string GetStreet(Address parts)
     {
         return parts.StreetLine;
     }
 
     // Line 2: suburb, state postcode (e.g., "Northest, NSQ 2000")
-    public static string GetSuburbState(AddressParts parts)
+    public static string GetSuburbState(Address parts)
     {
         return parts.SuburbStateLine;
     }

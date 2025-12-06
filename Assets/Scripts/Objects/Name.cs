@@ -1,4 +1,4 @@
-﻿public struct PersonName
+﻿public struct Name
 {
     public string lastName;
     public string firstName;

@@ -1,4 +1,4 @@
-﻿public struct AddressParts
+﻿public struct Address
 {
     public string UnitPrefix;
     public int StreetNumber;

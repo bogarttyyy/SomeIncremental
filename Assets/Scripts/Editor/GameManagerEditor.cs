@@ -9,14 +9,15 @@ public class GameManagerEditor : Editor
         DrawDefaultInspector();
 
         var manager = (GameManager)target;
+
+        if (GUILayout.Button("Generate Random Card"))
+        {
+            manager.GenerateRandomCardInEditor();
+        }
+        
         if (GUILayout.Button("Generate Random Name"))
         {
             manager.GenerateRandomNameInEditor();
-        }
-
-        if (GUILayout.Button("Generate Random Name + Address"))
-        {
-            manager.GenerateRandomNameAndAddressInEditor();
         }
 
         if (GUILayout.Button("Generate Random Address"))
@@ -24,11 +25,16 @@ public class GameManagerEditor : Editor
             manager.GenerateRandomAddressInEditor();
         }
 
+        if (GUILayout.Button("Generate Random Name + Address"))
+        {
+            manager.GenerateRandomeOrderInEditor();
+        }
+
         if (!string.IsNullOrEmpty(manager.LastGeneratedName))
         {
             EditorGUILayout.HelpBox($"Last name: {manager.LastGeneratedName}", MessageType.Info);
         }
-
+        
         if (!string.IsNullOrEmpty(manager.LastGeneratedAddress))
         {
             EditorGUILayout.HelpBox($"Last generated: {manager.LastGeneratedAddress}", MessageType.Info);

@@ -32,7 +32,7 @@ public static class RandomNameGenerator
     {
         rng ??= new Random();
 
-        PersonName newName = new PersonName()
+        Name newName = new Name()
         {
             firstName = FirstNames[rng.Next(FirstNames.Length)],
             lastName = LastNames[rng.Next(LastNames.Length)],
