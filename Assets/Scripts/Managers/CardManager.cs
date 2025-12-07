@@ -16,7 +16,28 @@ public class CardManager : MonoBehaviour
     public Card selectedCard;
     
     private SpriteRenderer spriteRenderer;
-    
+
+    private void OnEnable()
+    {
+        Card.CardClicked += OnCardClickedHandler;
+    }
+
+    private void OnDisable()
+    {
+        Card.CardClicked -= OnCardClickedHandler;
+    }
+
+    private void OnCardClickedHandler(Card card)
+    {
+        SetCardSelected(card);
+    }
+
+    private void SetCardSelected(Card card)
+    {
+        selectedCard.SetRarity(card);
+        selectedCard.SetSprite(card);
+    }
+
     void Awake()
     {
         if (Instance != null && Instance != this)
