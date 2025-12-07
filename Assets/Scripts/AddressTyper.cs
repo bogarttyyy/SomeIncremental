@@ -1,3 +1,5 @@
+using System;
+using Helpers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,6 +11,8 @@ using UnityEngine.InputSystem.Controls;
 /// </summary>
 public class AddressTyper : MonoBehaviour
 {
+    public static event Action<string> LetterSend;
+    
     [SerializeField] TMP_Text targetText;
     [SerializeField] GameManager gameManager;
 
@@ -30,7 +34,7 @@ public class AddressTyper : MonoBehaviour
             Keyboard.current.onTextInput += OnTextInput;
         }
         BigEnvelope.EnvelopeChanged += OnEnvelopeChanged;
-        Debug.Log("AddressTyper OnEnable()");
+        NSBLogger.Log("AddressTyper OnEnable()");
     }
 
     void OnDisable()
@@ -40,7 +44,7 @@ public class AddressTyper : MonoBehaviour
             Keyboard.current.onTextInput -= OnTextInput;
         }
         BigEnvelope.EnvelopeChanged -= OnEnvelopeChanged;
-        Debug.Log("AddressTyper OnDisable()");
+        NSBLogger.Log("AddressTyper OnDisable()");
     }
 
     void Update()
@@ -58,7 +62,7 @@ public class AddressTyper : MonoBehaviour
 
     private void OnEnvelopeChanged()
     {
-        Debug.Log("OnChangeEnvelope");
+        NSBLogger.Log("OnChangeEnvelope");
         ClearText();
     }
 
@@ -130,11 +134,12 @@ public class AddressTyper : MonoBehaviour
         currentText = currentText.Substring(0, i);
     }
 
-    // Ctrl+Enter: advance to next order address and clear current input.
+    // Shift+Enter: advance to next order address and clear current input.
     public void SubmitAndAdvance()
     {
+        LetterSend?.Invoke(currentText);
         ClearText();
-        gameManager.ShowNextOrderAddress();
+        gameManager.ShowNextOrder();
     }
 
     // Enter: append a newline to the current input.

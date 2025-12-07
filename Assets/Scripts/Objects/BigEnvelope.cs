@@ -12,15 +12,18 @@ using UnityEngine.UI;
 public class BigEnvelope : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
-    [SerializeField] private Vector2 slideInPos;
     [SerializeField] private Vector2 outPos;
+    [SerializeField] private float slideInPos;
+    [SerializeField] private float slideSendPos;
     [SerializeField] private float slideDuration=0.5f;
     [SerializeField] private Ease slideInEase = Ease.InOutQuad;
+    [SerializeField] private Ease sendEase = Ease.Flash;
     [SerializeField] private Image image;
 
     private TweenerCore<Vector3, Vector3, VectorOptions> envelopeSlideTween;
 
     public static event Action EnvelopeChanged;
+    public static event Action EnvelopeSent;
 
     private void Awake()
     {
@@ -32,11 +35,18 @@ public class BigEnvelope : MonoBehaviour
     private void OnEnable()
     {
         Envelope.EnvelopeClicked += OnEnvelopeClicked;
+        AddressTyper.LetterSend += OnLetterSend;
     }
 
     private void OnDisable()
     {
         Envelope.EnvelopeClicked -= OnEnvelopeClicked;
+        AddressTyper.LetterSend -= OnLetterSend;
+    }
+
+    public void Start()
+    {
+        transform.position = outPos;
     }
 
     private void OnEnvelopeClicked(Sprite sprite)
@@ -57,6 +67,16 @@ public class BigEnvelope : MonoBehaviour
         SlideIn();
     }
 
+    private void OnLetterSend(string address)
+    {
+        envelopeSlideTween = transform.DOMoveX(slideSendPos, slideDuration).SetEase(sendEase);
+        envelopeSlideTween.OnComplete(() =>
+        {
+            ResetEnvelope();
+            EnvelopeSent?.Invoke();
+        });
+    }
+
     private void ResetEnvelope()
     {
         // Kill Tween
@@ -71,6 +91,6 @@ public class BigEnvelope : MonoBehaviour
 
     private void SlideIn()
     {
-        envelopeSlideTween = transform.DOMove(slideInPos, slideDuration).SetEase(slideInEase);
+        envelopeSlideTween = transform.DOMoveX(slideInPos, slideDuration).SetEase(slideInEase);
     }
 }

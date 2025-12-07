@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using System;
+using Enums;
 using Generators;
 using UnityEngine;
 
@@ -6,13 +7,15 @@ public class CardManager : MonoBehaviour
 {
     public static CardManager Instance { get; private set; }
     
-    public static Sprite commonSprite;
-    public static Sprite uncommonSprite;
-    public static Sprite rareSprite;
-    public static Sprite epicSprite;
-    public static Sprite legendarySprite;
+    public Sprite commonSprite;
+    public Sprite uncommonSprite;
+    public Sprite rareSprite;
+    public Sprite epicSprite;
+    public Sprite legendarySprite;
     
     public Card selectedCard;
+    
+    private SpriteRenderer spriteRenderer;
     
     void Awake()
     {
@@ -26,7 +29,12 @@ public class CardManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void GetRandomCard()
+    private void Start()
+    {
+        spriteRenderer = selectedCard.GetComponent<SpriteRenderer>();
+    }
+
+    public ECardRarity GetRandomCard()
     {
         var cardType = RandomCardGenerator.GenerateRandomCard();
         var selectedSprite = cardType switch
@@ -39,6 +47,8 @@ public class CardManager : MonoBehaviour
             _ => commonSprite
         };
 
-        selectedCard.GetComponent<SpriteRenderer>().sprite = selectedSprite;
+        spriteRenderer.sprite = selectedSprite;
+        
+        return cardType;
     }
 }

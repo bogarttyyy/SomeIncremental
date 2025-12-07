@@ -1,4 +1,5 @@
 using System;
+using Helpers;
 using Interfaces;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class Envelope : MonoBehaviour, IClickable
 
     public void OnClicked()
     {
-        // Debug.Log($"Clicked: {gameObject.name}");
+        NSBLogger.Log($"Clicked: {gameObject.name}");
         EnvelopeClicked?.Invoke(bigSprite);
     }
 }

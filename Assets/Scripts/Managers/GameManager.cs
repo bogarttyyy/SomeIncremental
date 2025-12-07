@@ -1,23 +1,36 @@
+using System;
 using Enums;
 using Generators;
+using Helpers;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField]
-    TMP_Text letterAddress;
-    [SerializeField]
-    TMP_Text orderAddress;
+    [SerializeField] TMP_Text letterAddress;
+    [SerializeField] TMP_Text orderAddress;
+    [SerializeField] TMP_Text orderEnvelope;
 
     public string LastGeneratedName => lastGeneratedName;
     public string LastGeneratedAddress => lastGeneratedAddress;
 
     [SerializeField] ECardRarity lastGeneratedCard;
+    [SerializeField] EEnvelopeType lastGeneratedEnvelope;
     [SerializeField] string lastGeneratedName;
     [SerializeField] string lastGeneratedAddress;
+
+    private void OnEnable()
+    {
+        BigEnvelope.EnvelopeSent += ShowNextOrder;
+    }
+    
+    private void OnDisable()
+    {
+        BigEnvelope.EnvelopeSent -= ShowNextOrder;
+    }
 
     void Awake()
     {
@@ -34,41 +47,72 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ShowNextOrderAddress();
+        ShowNextOrder();
         letterAddress.text = string.Empty;
     }
 
-    public void ShowNextOrderAddress()
+    public void ShowNextOrder()
     {
-        string randomName = RandomNameGenerator.GetRandomName();
+        string randomName = GenerateNextName();
         Address generatedAddress = GenerateNextAddress();
+        var card = GenerateNextCard(CardManager.Instance.GetRandomCard());
+        var envelope = GenerateEnvelopeType();
+        
+        UpdateTextFields(randomName, generatedAddress, envelope);
+    }
+
+    private void UpdateTextFields(string randomName, Address generatedAddress, EEnvelopeType envelope)
+    {
         orderAddress.text = $"{randomName}\n{generatedAddress.StreetLine}\n{generatedAddress.SuburbStateLine}";
+        orderEnvelope.text = envelope.ToString();
+    }
+    
+    public EEnvelopeType GenerateEnvelopeType() => LastGeneratedEnvelope((EEnvelopeType)Random.Range(0, 3));
+
+    public string GenerateNextCard(ECardRarity rarity)
+    {
+        SetLastGeneratedCard(rarity);
+        return rarity.ToString();
+    }
+
+    public string GenerateNextName()
+    {
+        var name = RandomNameGenerator.GetRandomName();
+        SetLastGeneratedName(name);
+        return name;
     }
 
     public Address GenerateNextAddress(bool allowUnit = false)
     {
         Address generatedAddress = RandomAussieAddressGenerator.CreateAddressParts(allowUnit);
         lastGeneratedAddress = $"{generatedAddress.StreetLine}, {generatedAddress.SuburbStateLine}";
-        Debug.Log($"Ship to: {lastGeneratedAddress}");
+        NSBLogger.Log($"Ship to: {lastGeneratedAddress}");
         return generatedAddress;
     }
 
     private void SetLastGeneratedName(string personName)
     {
         lastGeneratedName = personName;
-        Debug.Log($"Generated name: {lastGeneratedName}");
+        NSBLogger.Log($"Generated name: {lastGeneratedName}");
     }
 
     private void SetLastGenerateAddress(string address)
     {
         lastGeneratedAddress = address;
-        Debug.Log($"Generated address: {lastGeneratedAddress}");
+        NSBLogger.Log($"Generated address: {lastGeneratedAddress}");
     }
 
     private void SetLastGeneratedCard(ECardRarity rarity)
     {
         lastGeneratedCard = rarity;
-        Debug.Log($"Generated card: {rarity}");
+        NSBLogger.Log($"Generated card: {rarity}");
+    }
+
+    private EEnvelopeType LastGeneratedEnvelope(EEnvelopeType envelopeType)
+    {
+        lastGeneratedEnvelope = envelopeType;
+        NSBLogger.Log($"Generated envelope: {envelopeType}");
+        return envelopeType;
     }
 
 #if UNITY_EDITOR
@@ -99,7 +143,7 @@ public class GameManager : MonoBehaviour
         SetLastGeneratedName(RandomNameGenerator.GetRandomName());
         Address generatedAddress = RandomAussieAddressGenerator.CreateAddressParts(false);
         SetLastGenerateAddress($"{generatedAddress.StreetLine}, {generatedAddress.SuburbStateLine}");
-        SetLastGeneratedCard(RandomCardGenerator.GenerateRandomCard());
+        SetLastGeneratedCard(CardManager.Instance.GetRandomCard());
         // ShowNextOrderAddress(lastGeneratedName, generatedAddress.StreetLine, generatedAddress.SuburbStateLine);
         UnityEditor.EditorUtility.SetDirty(this);
     }
