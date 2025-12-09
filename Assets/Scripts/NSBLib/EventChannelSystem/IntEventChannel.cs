@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace EventChannelSystem
+namespace NSBLib.EventChannelSystem
 {
     [CreateAssetMenu(fileName = "IntEventChannel", menuName = "Events/IntEventChannel")]
     public class IntEventChannel : EventChannel<int> {}

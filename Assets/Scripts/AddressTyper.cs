@@ -1,4 +1,5 @@
 using System;
+using NSBLib.EventChannelSystem;
 using Helpers;
 using TMPro;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class AddressTyper : MonoBehaviour
     
     [SerializeField] TMP_Text targetText;
     [SerializeField] GameManager gameManager;
+    [SerializeField] IntEventChannel addScore;
 
     string currentText = string.Empty;
     bool backspaceCameFromTextEvent;
@@ -138,6 +140,7 @@ public class AddressTyper : MonoBehaviour
     public void SubmitAndAdvance()
     {
         LetterSend?.Invoke(currentText);
+        addScore.Invoke(1);
         ClearText();
         gameManager.ShowNextOrder();
     }

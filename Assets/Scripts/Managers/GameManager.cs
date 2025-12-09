@@ -1,5 +1,6 @@
 using System;
 using Enums;
+using NSBLib.EventChannelSystem;
 using Generators;
 using Helpers;
 using TMPro;
@@ -9,6 +10,9 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+    public int Score;
+    [SerializeField] IntEventChannel updateScore;
 
     [SerializeField] TMP_Text letterAddress;
     [SerializeField] TMP_Text orderAddress;
@@ -52,6 +56,12 @@ public class GameManager : MonoBehaviour
         letterAddress.text = string.Empty;
     }
 
+    public void AddScore(int points)
+    {
+        Score += points;
+        updateScore.Invoke(Score);
+    }
+
     public void ShowNextOrder()
     {
         string randomName = GenerateNextName();
@@ -65,8 +75,8 @@ public class GameManager : MonoBehaviour
     private void UpdateTextFields(string randomName, Address generatedAddress, EEnvelopeType envelope, string cardName)
     {
         orderAddress.text = $"{randomName}\n{generatedAddress.StreetLine}\n{generatedAddress.SuburbStateLine}";
-        orderEnvelope.text = envelope.ToString();
-        orderCard.text = cardName;
+        orderEnvelope.text = $"{envelope.ToString()} - {cardName}";
+        // orderCard.text = cardName;
     }
     
     public EEnvelopeType GenerateEnvelopeType() => LastGeneratedEnvelope((EEnvelopeType)Random.Range(0, 3));

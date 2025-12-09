@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EventChannelSystem
+namespace NSBLib.EventChannelSystem
 {
     public abstract class EventListener<T> : MonoBehaviour
     {

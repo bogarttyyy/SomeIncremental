@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace EventChannelSystem
+namespace NSBLib.EventChannelSystem
 {
     public abstract class EventChannel<T> : ScriptableObject
     {
