@@ -18,6 +18,11 @@ public class CardManager : MonoBehaviour
     
     private SpriteRenderer spriteRenderer;
 
+    public void ResetSelectedCard()
+    {
+        spriteRenderer.sprite = null;
+    }
+
     private void OnEnable()
     {
         Card.CardClicked += OnCardClickedHandler;

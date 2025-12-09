@@ -12,11 +12,11 @@ using UnityEngine.InputSystem.Controls;
 /// </summary>
 public class AddressTyper : MonoBehaviour
 {
-    public static event Action<string> LetterSend;
-    
     [SerializeField] TMP_Text targetText;
     [SerializeField] GameManager gameManager;
     [SerializeField] IntEventChannel addScore;
+
+    [SerializeField] private StringEventChannel LetterSend;
 
     string currentText = string.Empty;
     bool backspaceCameFromTextEvent;
@@ -35,7 +35,6 @@ public class AddressTyper : MonoBehaviour
         {
             Keyboard.current.onTextInput += OnTextInput;
         }
-        BigEnvelope.EnvelopeChanged += OnEnvelopeChanged;
         NSBLogger.Log("AddressTyper OnEnable()");
     }
 
@@ -45,7 +44,6 @@ public class AddressTyper : MonoBehaviour
         {
             Keyboard.current.onTextInput -= OnTextInput;
         }
-        BigEnvelope.EnvelopeChanged -= OnEnvelopeChanged;
         NSBLogger.Log("AddressTyper OnDisable()");
     }
 
@@ -62,7 +60,7 @@ public class AddressTyper : MonoBehaviour
         backspaceCameFromTextEvent = false;
     }
 
-    private void OnEnvelopeChanged()
+    public void OnEnvelopeChanged()
     {
         NSBLogger.Log("OnChangeEnvelope");
         ClearText();

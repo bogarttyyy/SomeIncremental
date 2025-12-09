@@ -1,7 +1,7 @@
-using System;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using NSBLib.EventChannelSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,8 +22,9 @@ public class BigEnvelope : MonoBehaviour
 
     private TweenerCore<Vector3, Vector3, VectorOptions> envelopeSlideTween;
 
-    public static event Action EnvelopeChanged;
-    public static event Action EnvelopeSent;
+    [SerializeField] private EventChannel EnvelopeChanged;
+    [SerializeField] private EventChannel EnvelopeSent;
+    
 
     private void Awake()
     {
@@ -32,24 +33,12 @@ public class BigEnvelope : MonoBehaviour
         image ??= GetComponentInChildren<Image>();
     }
 
-    private void OnEnable()
-    {
-        Envelope.EnvelopeClicked += OnEnvelopeClicked;
-        AddressTyper.LetterSend += OnLetterSend;
-    }
-
-    private void OnDisable()
-    {
-        Envelope.EnvelopeClicked -= OnEnvelopeClicked;
-        AddressTyper.LetterSend -= OnLetterSend;
-    }
-
     public void Start()
     {
         transform.position = outPos;
     }
 
-    private void OnEnvelopeClicked(Sprite sprite)
+    public void OnEnvelopeClicked(Sprite sprite)
     {
         ResetEnvelope();
         if (sprite == null) return;
@@ -67,13 +56,13 @@ public class BigEnvelope : MonoBehaviour
         SlideIn();
     }
 
-    private void OnLetterSend(string address)
+    public void OnLetterSend(string address)
     {
         envelopeSlideTween = transform.DOMoveX(slideSendPos, slideDuration).SetEase(sendEase);
         envelopeSlideTween.OnComplete(() =>
         {
             ResetEnvelope();
-            EnvelopeSent?.Invoke();
+            EnvelopeSent?.Invoke(new Empty());
         });
     }
 
@@ -83,7 +72,7 @@ public class BigEnvelope : MonoBehaviour
         envelopeSlideTween?.Kill();
         
         // Reset Address Text
-        EnvelopeChanged?.Invoke();
+        EnvelopeChanged?.Invoke(new Empty());
         
         // Reset position away from screen
         transform.position = outPos;
