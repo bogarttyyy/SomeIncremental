@@ -12,11 +12,15 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public int Score;
+    [SerializeField] private float duration = 60f;
+    
+    [SerializeField] private float currentTime;
     [Header( "Events")]
     [SerializeField] IntEventChannel updateScore;
     [SerializeField] private EventChannel AddressGenerated;
     [SerializeField] private StringEventChannel NameGenerated;
     [SerializeField] private GameStateEventChannel GameStateChanged;
+    [SerializeField] private FloatEventChannel timeChanged;
     
     
     [Header("UI")]
@@ -51,14 +55,36 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentTime = duration;
         ShowNextOrder();
         letterAddress.text = string.Empty;
+    }
+
+    private void Update()
+    {
+        UpdateTimer();
     }
 
     public void AddScore(int points)
     {
         Score += points;
         updateScore?.Invoke(Score);
+    }
+
+    private void UpdateTimer()
+    {
+        if (currentTime > 0)
+        {
+            currentTime -= Time.deltaTime;
+            timeChanged?.Invoke(currentTime / duration);
+
+            if (currentTime <= 0)
+            {
+                currentTime = 0;
+                timeChanged?.Invoke(0f);
+                // Optional: Trigger Game Over or Time Up logic here
+            }
+        }
     }
 
     public void ShowNextOrder()
