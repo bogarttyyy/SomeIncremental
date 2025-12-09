@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] IntEventChannel updateScore;
     [SerializeField] private EventChannel AddressGenerated;
     [SerializeField] private StringEventChannel NameGenerated;
-
+    [SerializeField] private GameStateEventChannel GameStateChanged;
+    
+    
     [Header("UI")]
     [SerializeField] TMP_Text letterAddress;
     [SerializeField] TMP_Text orderAddress;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
     [Header( "Last Generated Data" )]
     public string LastGeneratedName => lastGeneratedName;
     public string LastGeneratedAddress => lastGeneratedAddress;
+    public EGameState CurrentGameState;
 
     [Header( "Generated Data")]
     [SerializeField] ECardRarity lastGeneratedCard;
@@ -55,17 +58,23 @@ public class GameManager : MonoBehaviour
     public void AddScore(int points)
     {
         Score += points;
-        updateScore.Invoke(Score);
+        updateScore?.Invoke(Score);
     }
 
     public void ShowNextOrder()
     {
+        GameStateChanged?.Invoke(EGameState.SelectEnvelopeState);
         string randomName = GenerateNextName();
         Address generatedAddress = GenerateNextAddress();
         var card = GenerateNextCard(CardManager.Instance.GetRandomCard());
         var envelope = GenerateEnvelopeType();
         
         UpdateTextFields(randomName, generatedAddress, envelope, card);
+    }
+
+    public void SetGameState(EGameState state)
+    {
+        CurrentGameState = state;
     }
 
     private void UpdateTextFields(string randomName, Address generatedAddress, EEnvelopeType envelope, string cardName)
@@ -106,31 +115,6 @@ public class GameManager : MonoBehaviour
         return address;
     }
 
-    private void SetLastGeneratedName(string personName)
-    {
-        lastGeneratedName = personName;
-        NSBLogger.Log($"Generated name: {lastGeneratedName}");
-    }
-
-    private void SetLastGenerateAddress(string address)
-    {
-        lastGeneratedAddress = address;
-        NSBLogger.Log($"Generated address: {lastGeneratedAddress}");
-    }
-
-    private void SetLastGeneratedCard(ECardRarity rarity)
-    {
-        lastGeneratedCard = rarity;
-        NSBLogger.Log($"Generated card: {rarity}");
-    }
-
-    private EEnvelopeType LastGeneratedEnvelope(EEnvelopeType envelopeType)
-    {
-        lastGeneratedEnvelope = envelopeType;
-        NSBLogger.Log($"Generated envelope: {envelopeType}");
-        return envelopeType;
-    }
-
 #if UNITY_EDITOR
     [ContextMenu("Generate Random Name")]
     public void GenerateRandomNameInEditor()
@@ -162,6 +146,31 @@ public class GameManager : MonoBehaviour
         SetLastGeneratedCard(CardManager.Instance.GetRandomCard());
         // ShowNextOrderAddress(lastGeneratedName, generatedAddress.StreetLine, generatedAddress.SuburbStateLine);
         UnityEditor.EditorUtility.SetDirty(this);
+    }
+
+    private void SetLastGeneratedName(string personName)
+    {
+        lastGeneratedName = personName;
+        NSBLogger.Log($"Generated name: {lastGeneratedName}");
+    }
+
+    private void SetLastGenerateAddress(string address)
+    {
+        lastGeneratedAddress = address;
+        NSBLogger.Log($"Generated address: {lastGeneratedAddress}");
+    }
+
+    private void SetLastGeneratedCard(ECardRarity rarity)
+    {
+        lastGeneratedCard = rarity;
+        NSBLogger.Log($"Generated card: {rarity}");
+    }
+
+    private EEnvelopeType LastGeneratedEnvelope(EEnvelopeType envelopeType)
+    {
+        lastGeneratedEnvelope = envelopeType;
+        NSBLogger.Log($"Generated envelope: {envelopeType}");
+        return envelopeType;
     }
 #endif
 }

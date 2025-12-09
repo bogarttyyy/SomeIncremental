@@ -1,8 +1,10 @@
 using System;
+using Enums;
 using NSBLib.Helpers;
 using Interfaces;
 using NSBLib.EventChannelSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Envelope : MonoBehaviour, IClickable
 {
@@ -10,11 +12,14 @@ public class Envelope : MonoBehaviour, IClickable
     
 
     [SerializeField] private Sprite bigSprite;
-    [SerializeField] private SpriteEventChannel EnvelopeClicked;
+    [FormerlySerializedAs("EnvelopeClicked")] 
+    [SerializeField] private SpriteEventChannel envelopeClicked;
+    [SerializeField] private GameStateEventChannel gameStateChanged;
 
     public void OnClicked()
     {
         NSBLogger.Log($"Clicked: {gameObject.name}");
-        EnvelopeClicked?.Invoke(bigSprite);
+        envelopeClicked?.Invoke(bigSprite);
+        gameStateChanged?.Invoke(EGameState.WriteAddressState);
     }
 }

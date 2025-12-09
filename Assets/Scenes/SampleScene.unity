@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 31150188}
   - component: {fileID: 31150187}
+  - component: {fileID: 31150189}
   m_Layer: 0
   m_Name: CardManager
   m_TagString: Untagged
@@ -169,6 +170,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &31150189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31150186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18871bf798cb43088f7565ca8c7cd9cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.EventListener
+  eventChannel: {fileID: 11400000, guid: bc38ea360bc357f42ad5d7f69e661241, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 31150187}
+        m_TargetAssemblyTypeName: CardManager, Assembly-CSharp
+        m_MethodName: ResetSelectedCard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &41328446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,6 +1762,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Envelope
   bigSprite: {fileID: 7811324469094505633, guid: 394f1f6f67aa26f45b1c3e8c295621c5, type: 3}
+  envelopeClicked: {fileID: 11400000, guid: 41ba75568d03d5e4a8efafb7166ce2d8, type: 2}
+  gameStateChanged: {fileID: 11400000, guid: cf5b5ce0ff227bd40bbba98c11e0f3c2, type: 2}
 --- !u!61 &935012258
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2116,6 +2147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Envelope
   bigSprite: {fileID: 910252581786890291, guid: 394f1f6f67aa26f45b1c3e8c295621c5, type: 3}
+  envelopeClicked: {fileID: 11400000, guid: 41ba75568d03d5e4a8efafb7166ce2d8, type: 2}
+  gameStateChanged: {fileID: 11400000, guid: cf5b5ce0ff227bd40bbba98c11e0f3c2, type: 2}
 --- !u!61 &1046451232
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2624,6 +2657,113 @@ Transform:
   - {fileID: 283546126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1390910103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1390910106}
+  - component: {fileID: 1390910105}
+  - component: {fileID: 1390910107}
+  - component: {fileID: 1390910104}
+  m_Layer: 0
+  m_Name: TypingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1390910104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390910103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c045bf7923a4f2646a3917d153bcbf25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AddressTyper
+  targetText: {fileID: 182075963}
+  addScore: {fileID: 11400000, guid: 04ca7ed2ee2ef10439559e698e624850, type: 2}
+  LetterSend: {fileID: 11400000, guid: f9e4661ef98e70a41a28beca75428b9a, type: 2}
+  gamestateChanged: {fileID: 11400000, guid: cf5b5ce0ff227bd40bbba98c11e0f3c2, type: 2}
+  enableWriting: 0
+--- !u!114 &1390910105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390910103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18871bf798cb43088f7565ca8c7cd9cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.EventListener
+  eventChannel: {fileID: 11400000, guid: b698b23f875df064b9cb9b0b48653fa2, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1390910104}
+        m_TargetAssemblyTypeName: AddressTyper, Assembly-CSharp
+        m_MethodName: OnEnvelopeChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &1390910106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390910103}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.20981, y: 0.02087, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1390910107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390910103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da57fca9e844964a9ebbea5a6c4f619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.GameStateEventListener
+  eventChannel: {fileID: 11400000, guid: cf5b5ce0ff227bd40bbba98c11e0f3c2, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1390910104}
+        m_TargetAssemblyTypeName: AddressTyper, Assembly-CSharp
+        m_MethodName: EnableWriting
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1410707034
 GameObject:
   m_ObjectHideFlags: 0
@@ -2882,6 +3022,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Envelope
   bigSprite: {fileID: -8843008833583301831, guid: 394f1f6f67aa26f45b1c3e8c295621c5, type: 3}
+  envelopeClicked: {fileID: 11400000, guid: 41ba75568d03d5e4a8efafb7166ce2d8, type: 2}
+  gameStateChanged: {fileID: 11400000, guid: cf5b5ce0ff227bd40bbba98c11e0f3c2, type: 2}
 --- !u!61 &1864921310
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2939,6 +3081,8 @@ GameObject:
   - component: {fileID: 2055505197}
   - component: {fileID: 2055505198}
   - component: {fileID: 2055505199}
+  - component: {fileID: 2055505201}
+  - component: {fileID: 2055505200}
   m_Layer: 0
   m_Name: BigEnvelope
   m_TagString: Untagged
@@ -3039,6 +3183,64 @@ MonoBehaviour:
   slideInEase: 27
   sendEase: 18
   image: {fileID: 0}
+  EnvelopeChanged: {fileID: 11400000, guid: b698b23f875df064b9cb9b0b48653fa2, type: 2}
+  EnvelopeSent: {fileID: 11400000, guid: bc38ea360bc357f42ad5d7f69e661241, type: 2}
+--- !u!114 &2055505200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055505196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f07933092c14574b2d9ae947219d041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.SpriteEventListener
+  eventChannel: {fileID: 11400000, guid: 41ba75568d03d5e4a8efafb7166ce2d8, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2055505199}
+        m_TargetAssemblyTypeName: BigEnvelope, Assembly-CSharp
+        m_MethodName: OnEnvelopeClicked
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2055505201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055505196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 403869002edc4514a028aaa9fea7b83f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.StringEventListener
+  eventChannel: {fileID: 11400000, guid: f9e4661ef98e70a41a28beca75428b9a, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2055505199}
+        m_TargetAssemblyTypeName: BigEnvelope, Assembly-CSharp
+        m_MethodName: OnLetterSend
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2125073119
 GameObject:
   m_ObjectHideFlags: 0
@@ -3049,8 +3251,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2125073121}
   - component: {fileID: 2125073120}
-  - component: {fileID: 2125073122}
   - component: {fileID: 2125073123}
+  - component: {fileID: 2125073124}
+  - component: {fileID: 2125073125}
+  - component: {fileID: 2125073126}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3072,10 +3276,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   Score: 0
   updateScore: {fileID: 11400000, guid: 965aaa6f0ff6dde498365b1056294762, type: 2}
+  AddressGenerated: {fileID: 0}
+  NameGenerated: {fileID: 0}
+  GameStateChanged: {fileID: 11400000, guid: cf5b5ce0ff227bd40bbba98c11e0f3c2, type: 2}
   letterAddress: {fileID: 182075963}
   orderAddress: {fileID: 41328448}
   orderEnvelope: {fileID: 1109468225}
   orderCard: {fileID: 1123632153}
+  CurrentGameState: 0
   lastGeneratedCard: 2
   lastGeneratedEnvelope: 0
   lastGeneratedName: Anish Osei
@@ -3095,21 +3303,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2125073122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2125073119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c045bf7923a4f2646a3917d153bcbf25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AddressTyper
-  targetText: {fileID: 182075963}
-  gameManager: {fileID: 2125073120}
-  addScore: {fileID: 11400000, guid: 04ca7ed2ee2ef10439559e698e624850, type: 2}
 --- !u!114 &2125073123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3138,6 +3331,90 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2125073124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125073119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18871bf798cb43088f7565ca8c7cd9cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.EventListener
+  eventChannel: {fileID: 11400000, guid: bc38ea360bc357f42ad5d7f69e661241, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2125073120}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ShowNextOrder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2125073125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125073119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18871bf798cb43088f7565ca8c7cd9cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.EventListener
+  eventChannel: {fileID: 0}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2125073120}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ShowNextOrder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2125073126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125073119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da57fca9e844964a9ebbea5a6c4f619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.GameStateEventListener
+  eventChannel: {fileID: 11400000, guid: cf5b5ce0ff227bd40bbba98c11e0f3c2, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2125073120}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SetGameState
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3154,3 +3431,4 @@ SceneRoots:
   - {fileID: 2125073121}
   - {fileID: 31150188}
   - {fileID: 575406476}
+  - {fileID: 1390910106}

@@ -1,4 +1,5 @@
 using System;
+using Enums;
 using NSBLib.EventChannelSystem;
 using NSBLib.Helpers;
 using TMPro;
@@ -15,7 +16,10 @@ public class AddressTyper : MonoBehaviour
     [SerializeField] TMP_Text targetText;
     [SerializeField] IntEventChannel addScore;
     [SerializeField] StringEventChannel LetterSend;
+    [SerializeField] private GameStateEventChannel gamestateChanged;
+    
 
+    [SerializeField] bool enableWriting;
     string currentText = string.Empty;
     bool backspaceCameFromTextEvent;
 
@@ -52,10 +56,20 @@ public class AddressTyper : MonoBehaviour
         if (keyboard == null) return; // no keyboard available
 
         HandleControlKeys(keyboard);
+        if (!enableWriting) return;
         targetText.text = currentText;
 
         // reset per-frame flags
         backspaceCameFromTextEvent = false;
+    }
+
+    // Shift+Enter: advance to next order address and clear current input.
+    public void SubmitAndAdvance()
+    {
+        LetterSend?.Invoke(currentText);
+        gamestateChanged?.Invoke(EGameState.EnvelopeSendState);
+        addScore.Invoke(1);
+        ClearText();
     }
 
     public void OnEnvelopeChanged()
@@ -63,6 +77,8 @@ public class AddressTyper : MonoBehaviour
         NSBLogger.Log("OnChangeEnvelope");
         ClearText();
     }
+
+    public void EnableWriting(EGameState state) => enableWriting = state == EGameState.WriteAddressState;
 
     void OnTextInput(char c)
     {
@@ -130,14 +146,6 @@ public class AddressTyper : MonoBehaviour
         while (i > 0 && !char.IsWhiteSpace(currentText[i - 1])) i--;
 
         currentText = currentText.Substring(0, i);
-    }
-
-    // Shift+Enter: advance to next order address and clear current input.
-    public void SubmitAndAdvance()
-    {
-        LetterSend?.Invoke(currentText);
-        addScore.Invoke(1);
-        ClearText();
     }
 
     // Enter: append a newline to the current input.
