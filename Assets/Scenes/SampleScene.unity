@@ -350,6 +350,8 @@ GameObject:
   - component: {fileID: 74698488}
   - component: {fileID: 74698490}
   - component: {fileID: 74698489}
+  - component: {fileID: 74698492}
+  - component: {fileID: 74698491}
   m_Layer: 5
   m_Name: TimerBar
   m_TagString: Untagged
@@ -414,6 +416,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74698487}
   m_CullTransparentMesh: 1
+--- !u!114 &74698491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74698487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5623a69037804ccb869932f1e18766b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.FloatEventListener
+  eventChannel: {fileID: 11400000, guid: a28d1f00604a7e34599544a8f458320b, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 74698492}
+        m_TargetAssemblyTypeName: TimeBar, Assembly-CSharp
+        m_MethodName: SetFillAmount
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &74698492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74698487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d51eb955ad6c4f4698b73a544454e55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TimeBar
 --- !u!1 &182075961
 GameObject:
   m_ObjectHideFlags: 0
@@ -3351,10 +3393,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   Score: 0
+  duration: 30
+  currentTime: 0
   updateScore: {fileID: 11400000, guid: 965aaa6f0ff6dde498365b1056294762, type: 2}
   AddressGenerated: {fileID: 0}
   NameGenerated: {fileID: 0}
   GameStateChanged: {fileID: 11400000, guid: cf5b5ce0ff227bd40bbba98c11e0f3c2, type: 2}
+  timeChanged: {fileID: 11400000, guid: a28d1f00604a7e34599544a8f458320b, type: 2}
   letterAddress: {fileID: 182075963}
   orderAddress: {fileID: 41328448}
   orderEnvelope: {fileID: 1109468225}

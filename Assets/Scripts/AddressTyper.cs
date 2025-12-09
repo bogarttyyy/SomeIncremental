@@ -17,6 +17,8 @@ public class AddressTyper : MonoBehaviour
     [SerializeField] IntEventChannel addScore;
     [SerializeField] StringEventChannel LetterSend;
     [SerializeField] private GameStateEventChannel gamestateChanged;
+    [SerializeField] private FloatEventChannel addTimer;
+    
     
 
     [SerializeField] bool enableWriting;
@@ -68,7 +70,8 @@ public class AddressTyper : MonoBehaviour
     {
         LetterSend?.Invoke(currentText);
         gamestateChanged?.Invoke(EGameState.EnvelopeSendState);
-        addScore.Invoke(1);
+        addScore?.Invoke(1);
+        addTimer?.Invoke(5f);
         ClearText();
     }
 
