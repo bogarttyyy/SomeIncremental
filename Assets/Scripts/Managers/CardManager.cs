@@ -1,7 +1,7 @@
 ﻿using System;
 using Enums;
 using Generators;
-using Helpers;
+using NSBLib.Helpers;
 using UnityEngine;
 
 public class CardManager : MonoBehaviour

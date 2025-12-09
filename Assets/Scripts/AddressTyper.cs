@@ -1,6 +1,6 @@
 using System;
 using NSBLib.EventChannelSystem;
-using Helpers;
+using NSBLib.Helpers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Enums;
-using Helpers;
+using NSBLib.Helpers;
 using Interfaces;
 using UnityEngine;
 

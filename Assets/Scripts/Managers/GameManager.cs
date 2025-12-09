@@ -2,7 +2,7 @@ using System;
 using Enums;
 using NSBLib.EventChannelSystem;
 using Generators;
-using Helpers;
+using NSBLib.Helpers;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
