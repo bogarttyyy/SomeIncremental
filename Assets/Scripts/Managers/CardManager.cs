@@ -1,6 +1,7 @@
 ﻿using System;
 using Enums;
 using Generators;
+using Helpers;
 using UnityEngine;
 
 public class CardManager : MonoBehaviour
@@ -29,13 +30,14 @@ public class CardManager : MonoBehaviour
 
     private void OnCardClickedHandler(Card card)
     {
+        NSBLogger.Log($"Card clicked: {card.GetSprite().name}");
         SetCardSelected(card);
     }
 
     private void SetCardSelected(Card card)
     {
-        selectedCard.SetRarity(card);
-        selectedCard.SetSprite(card);
+        // selectedCard.SetCardDetails(card);
+        spriteRenderer.sprite = card.GetSprite();
     }
 
     void Awake()
@@ -53,6 +55,7 @@ public class CardManager : MonoBehaviour
     private void Start()
     {
         spriteRenderer = selectedCard.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = null;
     }
 
     public ECardRarity GetRandomCard()
@@ -68,7 +71,7 @@ public class CardManager : MonoBehaviour
             _ => commonSprite
         };
 
-        spriteRenderer.sprite = selectedSprite;
+        // spriteRenderer.sprite = selectedSprite;
         
         return cardType;
     }

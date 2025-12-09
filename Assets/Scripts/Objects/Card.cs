@@ -5,6 +5,7 @@ using Helpers;
 using Interfaces;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class Card : MonoBehaviour, IClickable
 {
     [SerializeField] private ECardRarity rarity;
@@ -51,6 +52,12 @@ public class Card : MonoBehaviour, IClickable
     public void SetSprite(Card card)
     {
         SetSprite(card.GetSprite());
+    }
+
+    public void SetCardDetails(Card card)
+    {
+        SetSprite(card);
+        SetRarity(card);
     }
     
 }

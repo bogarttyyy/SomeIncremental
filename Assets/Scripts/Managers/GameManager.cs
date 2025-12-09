@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text letterAddress;
     [SerializeField] TMP_Text orderAddress;
     [SerializeField] TMP_Text orderEnvelope;
+    [SerializeField] TMP_Text orderCard;
 
     public string LastGeneratedName => lastGeneratedName;
     public string LastGeneratedAddress => lastGeneratedAddress;
@@ -58,13 +59,14 @@ public class GameManager : MonoBehaviour
         var card = GenerateNextCard(CardManager.Instance.GetRandomCard());
         var envelope = GenerateEnvelopeType();
         
-        UpdateTextFields(randomName, generatedAddress, envelope);
+        UpdateTextFields(randomName, generatedAddress, envelope, card);
     }
 
-    private void UpdateTextFields(string randomName, Address generatedAddress, EEnvelopeType envelope)
+    private void UpdateTextFields(string randomName, Address generatedAddress, EEnvelopeType envelope, string cardName)
     {
         orderAddress.text = $"{randomName}\n{generatedAddress.StreetLine}\n{generatedAddress.SuburbStateLine}";
         orderEnvelope.text = envelope.ToString();
+        orderCard.text = cardName;
     }
     
     public EEnvelopeType GenerateEnvelopeType() => LastGeneratedEnvelope((EEnvelopeType)Random.Range(0, 3));

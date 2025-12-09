@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Helpers;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -33,7 +34,7 @@ namespace Managers
             if (ignoreUI && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) 
                 return;
 
-            //NSBLogger.Log($"Click detected!");
+            // NSBLogger.Log($"Click detected!");
             
             Vector2 screenPos = mouse.position.ReadValue();
             Ray ray = cam.ScreenPointToRay(screenPos);
@@ -50,13 +51,13 @@ namespace Managers
             RaycastHit2D hit2D = Physics2D.Raycast(cam.ScreenToWorldPoint(screenPos), Vector2.zero, maxDistance, clickableLayers);
             if (hit2D.collider != null)
             {
-                //NSBLogger.Log($"Hit2D: {hit2D.collider.gameObject.name}");
+                // NSBLogger.Log($"Hit2D: {hit2D.collider.gameObject.name}");
                 var clickable = hit2D.collider.GetComponentInParent<IClickable>();
                 clickable?.OnClicked();
             }
             else
             {
-                //NSBLogger.Log($"Null Hit: {hit2D.collider}");
+                // NSBLogger.Log($"Null Hit: {hit2D.collider}");
             }
 
         }

@@ -1,3 +1,17 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 54300b7b9e924f5e8bfd27a0d227fb3d
-timeCreated: 1764978117
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - commonSprite: {fileID: 4608832191852099306, guid: 6982425f15edd014395c58db29b0d6d6, type: 3}
+  - uncommonSprite: {fileID: 4517138922720147577, guid: a5f3dcbda9646444288c8dec1b09da07, type: 3}
+  - rareSprite: {fileID: 8527946899835435422, guid: ce7d51017f313cb448fd57092bca6307, type: 3}
+  - epicSprite: {fileID: 1310177060958609284, guid: ec24974ce16f6f74e96fd4b84e3944b7, type: 3}
+  - legendarySprite: {fileID: 591894807085169977, guid: 938f2fb2ca6ab934ba3bd1b0026b8f09, type: 3}
+  - selectedCard: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
