@@ -13,10 +13,8 @@ using UnityEngine.InputSystem.Controls;
 public class AddressTyper : MonoBehaviour
 {
     [SerializeField] TMP_Text targetText;
-    [SerializeField] GameManager gameManager;
     [SerializeField] IntEventChannel addScore;
-
-    [SerializeField] private StringEventChannel LetterSend;
+    [SerializeField] StringEventChannel LetterSend;
 
     string currentText = string.Empty;
     bool backspaceCameFromTextEvent;
@@ -49,7 +47,7 @@ public class AddressTyper : MonoBehaviour
 
     void Update()
     {
-        if (targetText == null || gameManager == null) return;
+        if (!targetText) return;
         var keyboard = Keyboard.current;
         if (keyboard == null) return; // no keyboard available
 
@@ -140,7 +138,6 @@ public class AddressTyper : MonoBehaviour
         LetterSend?.Invoke(currentText);
         addScore.Invoke(1);
         ClearText();
-        gameManager.ShowNextOrder();
     }
 
     // Enter: append a newline to the current input.
