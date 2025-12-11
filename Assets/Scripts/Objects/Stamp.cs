@@ -1,10 +1,42 @@
+using System.Collections.Generic;
 using Interfaces;
+using NSBLib.Helpers;
 using UnityEngine;
 
-public class Stamp : MonoBehaviour, IDraggable
+public class Stamp : Draggable
 {
-    public void OnDragged(Vector3 position)
+    private Collider2D collider;
+    
+    private void Awake()
     {
-        transform.position = position;
+        collider = GetComponent<Collider2D>();
+    }
+    
+    public override void OnDragged(Vector3 position)
+    {
+        if (isDraggable)
+        {
+            transform.position = position;
+        }
+    }
+    
+    public override void OnDragReleased()
+    {
+        NSBLogger.Log("Stamp released");
+        
+        List<Collider2D> results = new List<Collider2D>();
+        collider.Overlap(ContactFilter2D.noFilter, results);
+
+        foreach (var col in results)
+        {
+            if (col.TryGetComponent(out BigEnvelope _))
+            {
+                NSBLogger.Log("Stamp hit envelope");
+                SetIsDraggable(false);
+                return;
+            }
+        }
+        
+        Destroy(gameObject);
     }
 }

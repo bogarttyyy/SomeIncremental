@@ -18,6 +18,8 @@ namespace Managers
 
         private Vector2 startMousePosition;
         private bool isPotentialClick;
+        private bool isFirstClick;
+        private bool isClickHeld;
         
         // Dragging state
         private IDraggable currentDraggable;
@@ -42,6 +44,11 @@ namespace Managers
             // 1. On Mouse Down: Record start position and check UI
             if (mouse.leftButton.wasPressedThisFrame)
             {
+                if (!isClickHeld)
+                {
+                    isFirstClick = true;
+                }
+                
                 if (ignoreUI && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
                 {
                     isPotentialClick = false;
@@ -80,11 +87,20 @@ namespace Managers
                         }
                     }
                 }
+                
+                if (isFirstClick)
+                    currentDraggable?.OnInitialClick(screenPos);
             }
             
             // 2. While Holding: Process Drag
             if (mouse.leftButton.isPressed)
             {
+                if (isFirstClick)
+                {
+                    isFirstClick = false;
+                    isClickHeld = true;
+                }
+                
                 if (currentDraggable != null)
                 {
                     // Check if we crossed the threshold to start dragging
@@ -113,7 +129,7 @@ namespace Managers
                         else // 2D
                         {
                             targetPosition = cam.ScreenToWorldPoint(screenPos);
-                            targetPosition.z = 0; // Ensure Z is 0 for 2D
+                            targetPosition.z = -1; // Ensure Z is 0 for 2D
                         }
 
                         currentDraggable.OnDragged(targetPosition);
@@ -124,9 +140,13 @@ namespace Managers
             // 3. On Mouse Up: Check distance to determine if it was a Click or Drag
             if (mouse.leftButton.wasReleasedThisFrame)
             {
+                // Release draggable
+                currentDraggable?.OnDragReleased();
+                
                 // Reset drag state
                 currentDraggable = null;
                 isDragging = false;
+                isClickHeld = false;
                 
                 if (!isPotentialClick) 
                     return;
