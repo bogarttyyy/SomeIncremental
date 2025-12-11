@@ -1,7 +1,9 @@
-﻿namespace Interfaces
+﻿using UnityEngine;
+
+namespace Interfaces
 {
     public interface IDraggable
     {
-        void OnDragged();
+        void OnDragged(Vector3 position);
     }
 }
