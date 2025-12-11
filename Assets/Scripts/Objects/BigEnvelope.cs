@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -24,7 +25,9 @@ public class BigEnvelope : MonoBehaviour
 
     [SerializeField] private EventChannel EnvelopeChanged;
     [SerializeField] private EventChannel EnvelopeSent;
-    
+
+    [SerializeField]
+    private List<Stamp> stamps = new();
 
     private void Awake()
     {
@@ -68,6 +71,9 @@ public class BigEnvelope : MonoBehaviour
 
     private void ResetEnvelope()
     {
+        // Clear Stamps
+        ClearStamps();
+
         // Kill Tween
         envelopeSlideTween?.Kill();
         
@@ -81,5 +87,17 @@ public class BigEnvelope : MonoBehaviour
     private void SlideIn()
     {
         envelopeSlideTween = transform.DOMoveX(slideInPos, slideDuration).SetEase(slideInEase);
+    }
+
+    public void AddStamp(Stamp stamp)
+    {
+        stamps.Add(stamp);
+        stamp.transform.SetParent(transform);
+    }
+
+    public void ClearStamps()
+    {
+        stamps.ForEach(stamp => Destroy(stamp.gameObject));
+        stamps.Clear();
     }
 }

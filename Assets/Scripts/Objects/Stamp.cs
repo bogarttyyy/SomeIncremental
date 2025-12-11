@@ -29,10 +29,11 @@ public class Stamp : Draggable
 
         foreach (var col in results)
         {
-            if (col.TryGetComponent(out BigEnvelope _))
+            if (col.TryGetComponent(out BigEnvelope bigEnvelope))
             {
                 NSBLogger.Log("Stamp hit envelope");
                 SetIsDraggable(false);
+                bigEnvelope.AddStamp(this);
                 return;
             }
         }
