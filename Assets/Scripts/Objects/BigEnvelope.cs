@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using Interfaces;
 using NSBLib.EventChannelSystem;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,12 +11,16 @@ using UnityEngine.UI;
 /// Listens for envelope click events and swaps this object's sprite accordingly.
 /// Supports either SpriteRenderer (world) or Image (UI) components.
 /// </summary>
-public class BigEnvelope : MonoBehaviour
+public class BigEnvelope : MonoBehaviour, IClickable
 {
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private string currentName;
+    [SerializeField] private string currentAddress;
+    [SerializeField] private float timerAdd = 1f;
+    [SerializeField] private Sprite bigEnvelopeSprite;
     [SerializeField] private Vector2 outPos;
-    [SerializeField] private float slideInPos;
-    [SerializeField] private float slideSendPos;
+    [SerializeField] private Vector2 slideInPos;
+    [SerializeField] private Vector2 slideSendPos;
     [SerializeField] private float slideDuration=0.5f;
     [SerializeField] private Ease slideInEase = Ease.InOutQuad;
     [SerializeField] private Ease sendEase = Ease.Flash;
@@ -25,6 +30,8 @@ public class BigEnvelope : MonoBehaviour
 
     [SerializeField] private EventChannel EnvelopeChanged;
     [SerializeField] private EventChannel EnvelopeSent;
+    [SerializeField] private FloatEventChannel addTimer;
+    [SerializeField] private StringEventChannel envelopeAddressChanged;
 
     [SerializeField]
     private List<Stamp> stamps = new();
@@ -39,6 +46,7 @@ public class BigEnvelope : MonoBehaviour
     public void Start()
     {
         transform.position = outPos;
+        OnEnvelopeClicked(bigEnvelopeSprite);
     }
 
     public void OnEnvelopeClicked(Sprite sprite)
@@ -61,11 +69,14 @@ public class BigEnvelope : MonoBehaviour
 
     public void OnLetterSend(string address)
     {
-        envelopeSlideTween = transform.DOMoveX(slideSendPos, slideDuration).SetEase(sendEase);
+        GameManager.Instance.ClearText();
+        envelopeSlideTween = transform.DOMove(slideSendPos, slideDuration).SetEase(sendEase);
         envelopeSlideTween.OnComplete(() =>
         {
             ResetEnvelope();
             EnvelopeSent?.Invoke(new Empty());
+            OnEnvelopeClicked(bigEnvelopeSprite);
+            addTimer.Invoke(timerAdd);
         });
     }
 
@@ -86,7 +97,8 @@ public class BigEnvelope : MonoBehaviour
 
     private void SlideIn()
     {
-        envelopeSlideTween = transform.DOMoveX(slideInPos, slideDuration).SetEase(slideInEase);
+        envelopeSlideTween = transform.DOMove(slideInPos, slideDuration).SetEase(slideInEase);
+        envelopeSlideTween.OnComplete(SetEnvelopeAddress);
     }
 
     public void AddStamp(Stamp stamp)
@@ -99,5 +111,26 @@ public class BigEnvelope : MonoBehaviour
     {
         stamps.ForEach(stamp => Destroy(stamp.gameObject));
         stamps.Clear();
+    }
+
+    public void OnClicked()
+    {
+        OnLetterSend(string.Empty);
+    }
+
+    private void SetEnvelopeAddress()
+    {
+        var address = $"{currentName}\n{currentAddress}";
+        envelopeAddressChanged.Invoke(address.ToUpperInvariant());
+    }
+
+    public void SetCurrentAddress(string formattedAddress)
+    {
+        currentAddress = formattedAddress;
+    }
+
+    public void SetCurrentName(string name)
+    {
+        currentName = name;
     }
 }

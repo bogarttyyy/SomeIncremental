@@ -10,4 +10,6 @@
 
     public string StreetLine => $"{UnitPrefix}{StreetNumber} {StreetName} {StreetType}";
     public string SuburbStateLine => $"{Suburb}, {State} {Postcode:D4}";
+    
+    public string CompleteAddress => $"{StreetLine}\n{SuburbStateLine}";
 }

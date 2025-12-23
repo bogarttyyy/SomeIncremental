@@ -6,10 +6,12 @@ using UnityEngine;
 public class Stamp : Draggable
 {
     private Collider2D collider;
+    [SerializeField] private SpriteRenderer renderer;
     
     private void Awake()
     {
         collider = GetComponent<Collider2D>();
+        renderer = GetComponent<SpriteRenderer>();
     }
     
     public override void OnDragged(Vector3 position)
@@ -39,5 +41,10 @@ public class Stamp : Draggable
         }
         
         Destroy(gameObject);
+    }
+
+    public void SetStampSprite(Sprite stamp)
+    {
+        renderer.sprite = stamp;
     }
 }

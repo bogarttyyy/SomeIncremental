@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float currentTime;
     [Header( "Events")]
     [SerializeField] IntEventChannel updateScore;
-    [SerializeField] private EventChannel AddressGenerated;
+    [SerializeField] private StringEventChannel AddressGenerated;
     [SerializeField] private StringEventChannel NameGenerated;
     [SerializeField] private GameStateEventChannel GameStateChanged;
     [SerializeField] private FloatEventChannel timeChanged;
@@ -69,6 +69,11 @@ public class GameManager : MonoBehaviour
     {
         Score += points;
         updateScore?.Invoke(Score);
+    }
+
+    public void AddTimer(float additionalTime)
+    {
+        currentTime += additionalTime;
     }
 
     private void UpdateTimer()
@@ -137,8 +142,18 @@ public class GameManager : MonoBehaviour
     private Address GenerateAddress(bool allowUnit)
     {
         var address = RandomAussieAddressGenerator.CreateAddressParts(allowUnit);
-        AddressGenerated?.Invoke(new Empty());
+        AddressGenerated?.Invoke(address.CompleteAddress);
         return address;
+    }
+
+    public void SetLetterAddress(string address)
+    {
+        letterAddress.text = address;
+    }
+
+    public void ClearText()
+    {
+        letterAddress.text = string.Empty;
     }
 
 #if UNITY_EDITOR
