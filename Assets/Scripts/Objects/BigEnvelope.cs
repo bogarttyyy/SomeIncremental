@@ -5,6 +5,7 @@ using DG.Tweening.Plugins.Options;
 using Interfaces;
 using NSBLib.EventChannelSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 /// <summary>
@@ -15,7 +16,8 @@ public class BigEnvelope : MonoBehaviour, IClickable
 {
     private SpriteRenderer spriteRenderer;
     [SerializeField] private string currentName;
-    [SerializeField] private string currentAddress;
+    [FormerlySerializedAs("currentAddress")] [SerializeField] private string currentAddressString;
+    private Address envelopeAddress;
     [SerializeField] private float timerAdd = 1f;
     [SerializeField] private Sprite bigEnvelopeSprite;
     [SerializeField] private Vector2 outPos;
@@ -29,12 +31,11 @@ public class BigEnvelope : MonoBehaviour, IClickable
     private TweenerCore<Vector3, Vector3, VectorOptions> envelopeSlideTween;
 
     [SerializeField] private EventChannel EnvelopeChanged;
-    [SerializeField] private EventChannel EnvelopeSent;
+    [SerializeField] private BigEnvelopeEventChannel EnvelopeSent;
     [SerializeField] private FloatEventChannel addTimer;
     [SerializeField] private StringEventChannel envelopeAddressChanged;
 
-    [SerializeField]
-    private List<Stamp> stamps = new();
+    [SerializeField] private List<Stamp> stamps = new();
 
     private void Awake()
     {
@@ -74,16 +75,17 @@ public class BigEnvelope : MonoBehaviour, IClickable
         envelopeSlideTween.OnComplete(() =>
         {
             ResetEnvelope();
-            EnvelopeSent?.Invoke(new Empty());
+            EnvelopeSent?.Invoke(this);
             OnEnvelopeClicked(bigEnvelopeSprite);
             addTimer.Invoke(timerAdd);
+            ClearStamps();
         });
     }
 
     private void ResetEnvelope()
     {
         // Clear Stamps
-        ClearStamps();
+        // ClearStamps();
 
         // Kill Tween
         envelopeSlideTween?.Kill();
@@ -121,18 +123,29 @@ public class BigEnvelope : MonoBehaviour, IClickable
 
     private void SetEnvelopeAddress()
     {
-        var address = $"{currentName}\n{currentAddress}";
+        var address = $"{currentName}\n{currentAddressString}";
         envelopeAddressChanged.Invoke(address.ToUpperInvariant());
     }
 
     public void SetCurrentAddress(Address address)
     {
-        currentAddress = address.CompleteAddress;
+        envelopeAddress = address;
+        currentAddressString = address.CompleteAddress;
         SetEnvelopeAddress();
     }
 
     public void SetCurrentName(string name)
     {
         currentName = name;
+    }
+
+    public Address GetAddress()
+    {
+        return envelopeAddress;
+    }
+    
+    public List<Stamp> GetStamps()
+    {
+        return stamps;
     }
 }

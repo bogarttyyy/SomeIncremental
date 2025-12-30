@@ -39,7 +39,7 @@ public class AddressTyper : MonoBehaviour
         {
             Keyboard.current.onTextInput += OnTextInput;
         }
-        NSBLogger.Log("AddressTyper OnEnable()");
+        // NSBLogger.Log("AddressTyper OnEnable()");
     }
 
     void OnDisable()
@@ -48,7 +48,7 @@ public class AddressTyper : MonoBehaviour
         {
             Keyboard.current.onTextInput -= OnTextInput;
         }
-        NSBLogger.Log("AddressTyper OnDisable()");
+        // NSBLogger.Log("AddressTyper OnDisable()");
     }
 
     void Update()
@@ -77,7 +77,7 @@ public class AddressTyper : MonoBehaviour
 
     public void OnEnvelopeChanged()
     {
-        NSBLogger.Log("OnChangeEnvelope");
+        // NSBLogger.Log("OnChangeEnvelope");
         ClearText();
     }
 

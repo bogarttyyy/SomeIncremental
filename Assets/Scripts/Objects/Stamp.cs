@@ -26,7 +26,7 @@ public class Stamp : Draggable
     
     public override void OnDragReleased()
     {
-        NSBLogger.Log("Stamp released");
+        // NSBLogger.Log("Stamp released");
         
         List<Collider2D> results = new List<Collider2D>();
         collider.Overlap(ContactFilter2D.noFilter, results);
@@ -35,7 +35,7 @@ public class Stamp : Draggable
         {
             if (col.TryGetComponent(out BigEnvelope bigEnvelope))
             {
-                NSBLogger.Log("Stamp hit envelope");
+                // NSBLogger.Log("Stamp hit envelope");
                 SetIsDraggable(false);
                 bigEnvelope.AddStamp(this);
                 return;
@@ -53,5 +53,10 @@ public class Stamp : Draggable
     public void SetStampState(EStampState state)
     {
         eStampState = state;
+    }
+
+    public EStampState GetState()
+    {
+        return eStampState;
     }
 }

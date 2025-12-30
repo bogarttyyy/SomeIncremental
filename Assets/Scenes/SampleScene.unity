@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18871bf798cb43088f7565ca8c7cd9cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.EventListener
-  eventChannel: {fileID: 11400000, guid: bc38ea360bc357f42ad5d7f69e661241, type: 2}
+  eventChannel: {fileID: 0}
   unityEvent:
     m_PersistentCalls:
       m_Calls:
@@ -1517,7 +1517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 575406476}
   - component: {fileID: 575406475}
-  - component: {fileID: 575406474}
+  - component: {fileID: 575406477}
   m_Layer: 0
   m_Name: ScoreManager
   m_TagString: Untagged
@@ -1525,34 +1525,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &575406474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575406473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0990414251c4e49a8e381277280adb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EventChannelSystem.IntEventListener
-  eventChannel: {fileID: 11400000, guid: 965aaa6f0ff6dde498365b1056294762, type: 2}
-  unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 575406475}
-        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
-        m_MethodName: AddScore
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &575406475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,6 +1538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
   score: 0
+  updateScore: {fileID: 11400000, guid: 965aaa6f0ff6dde498365b1056294762, type: 2}
 --- !u!4 &575406476
 Transform:
   m_ObjectHideFlags: 0
@@ -1581,6 +1554,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &575406477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575406473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fe83aad30574557b284ba063d86ef5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.BigEnvelopeEventListener
+  eventChannel: {fileID: 11400000, guid: bc38ea360bc357f42ad5d7f69e661241, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 575406475}
+        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+        m_MethodName: Evaluate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &587183722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3683,7 +3684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AddressTyper
   targetText: {fileID: 182075963}
-  addScore: {fileID: 11400000, guid: 04ca7ed2ee2ef10439559e698e624850, type: 2}
+  addScore: {fileID: 0}
   LetterSend: {fileID: 11400000, guid: f9e4661ef98e70a41a28beca75428b9a, type: 2}
   gamestateChanged: {fileID: 11400000, guid: cf5b5ce0ff227bd40bbba98c11e0f3c2, type: 2}
   addTimer: {fileID: 11400000, guid: 89dfdfe6fb197564f9e4ca92673e3820, type: 2}
@@ -4561,7 +4562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BigEnvelope
   currentName: 
-  currentAddress: 
+  currentAddressString: 
   timerAdd: 2
   bigEnvelopeSprite: {fileID: -7138065073577817170, guid: 394f1f6f67aa26f45b1c3e8c295621c5, type: 3}
   outPos: {x: -20, y: -1.5}
@@ -4773,11 +4774,10 @@ GameObject:
   - component: {fileID: 2125073121}
   - component: {fileID: 2125073120}
   - component: {fileID: 2125073123}
-  - component: {fileID: 2125073124}
-  - component: {fileID: 2125073125}
   - component: {fileID: 2125073126}
   - component: {fileID: 2125073127}
   - component: {fileID: 2125073128}
+  - component: {fileID: 2125073129}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4800,7 +4800,7 @@ MonoBehaviour:
   Score: 0
   duration: 30
   currentTime: 0
-  updateScore: {fileID: 11400000, guid: 965aaa6f0ff6dde498365b1056294762, type: 2}
+  updateScore: {fileID: 0}
   AddressGenerated: {fileID: 11400000, guid: b572ed4357a0f2f4585c250c979346b9, type: 2}
   NameGenerated: {fileID: 11400000, guid: f698d2e77cbfe0e40ac1fbaa6439172c, type: 2}
   GameStateChanged: {fileID: 11400000, guid: cf5b5ce0ff227bd40bbba98c11e0f3c2, type: 2}
@@ -4849,62 +4849,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: AddScore
         m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &2125073124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2125073119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18871bf798cb43088f7565ca8c7cd9cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.EventListener
-  eventChannel: {fileID: 11400000, guid: bc38ea360bc357f42ad5d7f69e661241, type: 2}
-  unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2125073120}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ShowNextOrder
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &2125073125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2125073119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18871bf798cb43088f7565ca8c7cd9cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.EventListener
-  eventChannel: {fileID: 0}
-  unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2125073120}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ShowNextOrder
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4989,6 +4933,34 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: SetLetterAddress
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2125073129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125073119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fe83aad30574557b284ba063d86ef5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.BigEnvelopeEventListener
+  eventChannel: {fileID: 11400000, guid: bc38ea360bc357f42ad5d7f69e661241, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2125073120}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ShowNextOrder
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
