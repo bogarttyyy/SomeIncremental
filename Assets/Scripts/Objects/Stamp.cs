@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Enums;
 using Interfaces;
 using NSBLib.Helpers;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class Stamp : Draggable
 {
     private Collider2D collider;
     [SerializeField] private SpriteRenderer renderer;
+    [SerializeField] private EStampState eStampState;
     
     private void Awake()
     {
@@ -46,5 +48,10 @@ public class Stamp : Draggable
     public void SetStampSprite(Sprite stamp)
     {
         renderer.sprite = stamp;
+    }
+    
+    public void SetStampState(EStampState state)
+    {
+        eStampState = state;
     }
 }

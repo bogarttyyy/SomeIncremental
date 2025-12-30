@@ -1,4 +1,5 @@
 using System;
+using Enums;
 using Interfaces;
 using NSBLib.Helpers;
 using TMPro.EditorUtilities;
@@ -8,8 +9,8 @@ using UnityEngine.UIElements;
 public class StampPile : Draggable
 {
     public Stamp stamp;
-
     private Stamp instancedStamp;
+    [SerializeField] EStampState eStampState;
     
     [SerializeField] private Sprite stampSprite;
 
@@ -23,6 +24,7 @@ public class StampPile : Draggable
         NSBLogger.Log("Initial click");
         instancedStamp = Instantiate(stamp, new Vector3(transform.position.x, transform.position.y, transform.position.z - 1), Quaternion.identity);
         instancedStamp.SetStampSprite(stampSprite);
+        instancedStamp.SetStampState(eStampState);
         
     }
 

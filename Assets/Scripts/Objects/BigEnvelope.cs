@@ -93,6 +93,7 @@ public class BigEnvelope : MonoBehaviour, IClickable
         
         // Reset position away from screen
         transform.position = outPos;
+
     }
 
     private void SlideIn()
@@ -124,9 +125,10 @@ public class BigEnvelope : MonoBehaviour, IClickable
         envelopeAddressChanged.Invoke(address.ToUpperInvariant());
     }
 
-    public void SetCurrentAddress(string formattedAddress)
+    public void SetCurrentAddress(Address address)
     {
-        currentAddress = formattedAddress;
+        currentAddress = address.CompleteAddress;
+        SetEnvelopeAddress();
     }
 
     public void SetCurrentName(string name)

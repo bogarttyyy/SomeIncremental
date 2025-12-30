@@ -1,4 +1,5 @@
 using System;
+using Enums;
 
 public static class RandomAussieAddressGenerator
 {
@@ -18,15 +19,15 @@ public static class RandomAussieAddressGenerator
 
     // State-associated postcode bands to keep fiction roughly aligned with AU formatting.
     // Fictional-but-familiar state codes as a nod to AU regions.
-    static readonly (string State, int Min, int Max)[] StatePostcodeRanges = {
-        ("ACR", 1000, 1999),
-        ("NSQ", 2000, 2999),
-        ("VIK", 3000, 3999),
-        ("QLT", 4000, 4999),
-        ("SE", 5000, 5999),
-        ("VA", 6000, 6999),
-        ("TAZ", 7000, 7999),
-        ("ND", 800, 999) // will zero-pad to 4 digits (e.g., 0800)
+    static readonly (EStampState State, int Min, int Max)[] StatePostcodeRanges = {
+        (EStampState.Acr, 1000, 1999),
+        (EStampState.Nsq, 2000, 2999),
+        (EStampState.Vik, 3000, 3999),
+        (EStampState.Qlt, 4000, 4999),
+        (EStampState.Se, 5000, 5999),
+        (EStampState.Va, 6000, 6999),
+        (EStampState.Taz, 7000, 7999),
+        (EStampState.Nd, 800, 999) // will zero-pad to 4 digits (e.g., 0800)
     };
 
     public static Address CreateAddressParts(bool allowUnit = true, Random rng = null)
