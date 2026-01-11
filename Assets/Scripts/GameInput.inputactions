@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "GameInput",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "feb2d529-c2df-488a-8ba4-c280775c84f8",
+            "actions": [
+                {
+                    "name": "Reset",
+                    "type": "Button",
+                    "id": "701d76b4-fb5a-4220-85cc-7628dc7030d7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "98c449f9-c4aa-468b-bc0f-a8b318812b1e",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

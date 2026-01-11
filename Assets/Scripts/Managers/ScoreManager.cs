@@ -6,11 +6,14 @@ public class ScoreManager : MonoBehaviour
 {
     public int score;
     [SerializeField] IntEventChannel updateScore;
+    [SerializeField] FloatEventChannel addTimer;
     
     public void AddScore(int amount)
     {
         score += amount;
         updateScore?.Invoke(score);
+        if (amount >0)
+            addTimer?.Invoke(2);
     }
 
     public void Evaluate(BigEnvelope envelope)

@@ -77,7 +77,7 @@ public class BigEnvelope : MonoBehaviour, IClickable
             ResetEnvelope();
             EnvelopeSent?.Invoke(this);
             OnEnvelopeClicked(bigEnvelopeSprite);
-            addTimer.Invoke(timerAdd);
+            // addTimer.Invoke(timerAdd);
             ClearStamps();
         });
     }

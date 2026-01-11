@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 31150188}
   - component: {fileID: 31150187}
-  - component: {fileID: 31150189}
   m_Layer: 0
   m_Name: CardManager
   m_TagString: Untagged
@@ -170,34 +169,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &31150189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 31150186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18871bf798cb43088f7565ca8c7cd9cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NSBLib.EventChannelSystem.EventListener
-  eventChannel: {fileID: 0}
-  unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 31150187}
-        m_TargetAssemblyTypeName: CardManager, Assembly-CSharp
-        m_MethodName: ResetSelectedCard
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &41328446
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,11 +344,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 605529644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 220.7}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 10}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &74698489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1539,6 +1510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
   score: 0
   updateScore: {fileID: 11400000, guid: 965aaa6f0ff6dde498365b1056294762, type: 2}
+  addTimer: {fileID: 11400000, guid: 89dfdfe6fb197564f9e4ca92673e3820, type: 2}
 --- !u!4 &575406476
 Transform:
   m_ObjectHideFlags: 0
@@ -3687,7 +3659,7 @@ MonoBehaviour:
   addScore: {fileID: 0}
   LetterSend: {fileID: 11400000, guid: f9e4661ef98e70a41a28beca75428b9a, type: 2}
   gamestateChanged: {fileID: 11400000, guid: cf5b5ce0ff227bd40bbba98c11e0f3c2, type: 2}
-  addTimer: {fileID: 11400000, guid: 89dfdfe6fb197564f9e4ca92673e3820, type: 2}
+  addTimer: {fileID: 0}
   enableWriting: 0
 --- !u!114 &1390910105
 MonoBehaviour:
@@ -4574,7 +4546,7 @@ MonoBehaviour:
   image: {fileID: 0}
   EnvelopeChanged: {fileID: 11400000, guid: b698b23f875df064b9cb9b0b48653fa2, type: 2}
   EnvelopeSent: {fileID: 11400000, guid: bc38ea360bc357f42ad5d7f69e661241, type: 2}
-  addTimer: {fileID: 11400000, guid: 89dfdfe6fb197564f9e4ca92673e3820, type: 2}
+  addTimer: {fileID: 0}
   envelopeAddressChanged: {fileID: 11400000, guid: 100d42530a8025c4cb3d79c48866e8ea, type: 2}
   stamps: []
 --- !u!114 &2055505200
@@ -4778,6 +4750,7 @@ GameObject:
   - component: {fileID: 2125073127}
   - component: {fileID: 2125073128}
   - component: {fileID: 2125073129}
+  - component: {fileID: 2125073130}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4969,6 +4942,52 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2125073130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125073119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 7709538913acfd04cb42dd1a5533d4dc, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2125073120}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 701d76b4-fb5a-4220-85cc-7628dc7030d7
+    m_ActionName: 'Gameplay/Reset[/Keyboard/r]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &5704344034012060128
 PrefabInstance:
   m_ObjectHideFlags: 0
